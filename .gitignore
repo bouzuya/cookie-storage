@@ -1,0 +1,5 @@
+*.log
+.envrc
+.tmp
+coverage
+node_modules
