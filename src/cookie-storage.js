@@ -23,9 +23,10 @@ class CookieStorage {
   getItem(key) {
   }
 
-  // TODO
   // [IndexGetter] DOMString key(in unsigned long index);
   key(index) {
+    var parsed = this._parse(document.cookie);
+    return Object.keys(parsed).sort()[index];
   }
 
   // TODO
@@ -36,6 +37,18 @@ class CookieStorage {
   // TODO
   // [NameSetter] void setItem(in DOMString key, in DOMString data);
   setItem(key, data) {
+  }
+
+  _parse(s) {
+    var parsed = {};
+    var pattern = new RegExp('\\s*;\\s*');
+    s.split(pattern).forEach((i) => {
+      var [encodedKey, encodedValue] = i.split('=');
+      var key = decodeURIComponent(encodedKey);
+      var value = decodeURIComponent(encodedValue);
+      parsed[key] = value;
+    });
+    return parsed;
   }
 }
 

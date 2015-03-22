@@ -4,14 +4,25 @@ assert = require 'power-assert'
 describe 'CookieStorage', ->
   beforeEach ->
     @storage = new CookieStorage()
+    global.document = {}
+
+  afterEach ->
+    delete global.document
 
   describe '#length', ->
     it 'should be 0', ->
       assert @storage.length is 0
 
   describe '#key', ->
+    beforeEach ->
+      document.cookie = 'a=1;b=2'
+
     it 'should be a function', ->
       assert typeof @storage.key is 'function'
+
+    it 'works', ->
+      assert @storage.key(0) is 'a'
+      assert @storage.key(1) is 'b'
 
   describe '#getItem', ->
     it 'should be a function', ->
