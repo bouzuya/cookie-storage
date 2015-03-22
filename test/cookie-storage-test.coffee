@@ -47,6 +47,10 @@ describe 'CookieStorage', ->
     it 'should be a function', ->
       assert typeof @storage.removeItem is 'function'
 
+    it 'works', ->
+      @storage.removeItem('a')
+      assert document.cookie is 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
+
   describe '#clear', ->
     it 'should be a function', ->
       assert typeof @storage.clear is 'function'

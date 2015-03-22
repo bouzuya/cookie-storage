@@ -36,9 +36,13 @@ class CookieStorage {
     return Object.keys(parsed).sort()[index];
   }
 
-  // TODO
   // [NameDeleter] void removeItem(in DOMString key);
   removeItem(key) {
+    var data = '';
+    var options = this._clone(this._defaultOptions);
+    options.expires = new Date(0);
+    var formatted = this._format(key, data, options);
+    document.cookie = formatted;
   }
 
   // [NameSetter] void setItem(in DOMString key, in DOMString data);
