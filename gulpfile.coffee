@@ -14,13 +14,13 @@ ignoreError = (stream) ->
 
 gulp.task 'build', ->
   gulp.src './src/*'
-    .pipe babel modules: 'umd'
+    .pipe babel modules: 'umd', comments: false
     .pipe gulp.dest './dist/'
 
 gulp.task 'build-dev', ->
   gulp.src './src/*'
     .pipe sourcemaps.init()
-    .pipe ignoreError babel(modules: 'umd')
+    .pipe ignoreError babel(modules: 'umd', comments: false)
     .pipe sourcemaps.write()
     .pipe gulp.dest './dist/'
 
