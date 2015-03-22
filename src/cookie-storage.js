@@ -52,8 +52,9 @@ class CookieStorage {
   }
 
   // [NameSetter] void setItem(in DOMString key, in DOMString data);
-  setItem(key, data) {
-    var options = this._clone(this._defaultOptions);
+  setItem(key, data, options) {
+    options = options || {};
+    options = this._extends(this._clone(this._defaultOptions), options);
     var formatted = this._format(key, data, options);
     document.cookie = formatted;
   }
@@ -62,6 +63,11 @@ class CookieStorage {
     var cloned = {};
     Object.keys(o).forEach(i => cloned[i] = o[i]);
     return cloned;
+  }
+
+  _extends(o1, o2) {
+    Object.keys(o2).forEach(i => o1[i] = o2[i]);
+    return o1;
   }
 
   _format(k, d, o) {

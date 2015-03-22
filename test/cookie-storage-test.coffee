@@ -46,8 +46,16 @@ describe 'CookieStorage', ->
       assert typeof @storage.setItem is 'function'
 
     it 'works', ->
-      @storage.setItem('a', '1')
+      @storage.setItem 'a', '1'
       assert document.cookie is 'a=1'
+      @storage.setItem 'b', '2', path: '/'
+      assert document.cookie is 'b=2;path=/'
+      @storage.setItem 'c', '3', domain: 'example.com'
+      assert document.cookie is 'c=3;domain=example.com'
+      @storage.setItem 'd', '4', expires: new Date(1427005235068)
+      assert document.cookie is 'd=4;expires=Sun, 22 Mar 2015 06:20:35 GMT'
+      @storage.setItem 'e', '5', secure: true
+      assert document.cookie is 'e=5;secure'
 
   describe '#removeItem', ->
     it 'should be a function', ->
