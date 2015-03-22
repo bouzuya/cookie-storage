@@ -54,3 +54,8 @@ describe 'CookieStorage', ->
   describe '#clear', ->
     it 'should be a function', ->
       assert typeof @storage.clear is 'function'
+
+    it 'works', ->
+      document.cookie = 'a=1'
+      @storage.clear()
+      assert document.cookie is 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT'

@@ -19,9 +19,10 @@ class CookieStorage {
     this.length = 0;
   }
 
-  // TODO
   // void clear();
   clear() {
+    var parsed = this._parse(document.cookie);
+    Object.keys(parsed).forEach(key => this.removeItem(key));
   }
 
   // [NameGetter] DOMString getItem(in DOMString key);
