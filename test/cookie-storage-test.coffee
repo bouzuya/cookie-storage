@@ -39,6 +39,10 @@ describe 'CookieStorage', ->
     it 'should be a function', ->
       assert typeof @storage.setItem is 'function'
 
+    it 'works', ->
+      @storage.setItem('a', '1')
+      assert document.cookie is 'a=1'
+
   describe '#removeItem', ->
     it 'should be a function', ->
       assert typeof @storage.removeItem is 'function'
