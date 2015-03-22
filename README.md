@@ -13,3 +13,7 @@ or
 ```
 $ npm install cookie-storage
 ```
+
+# Development
+
+See `npm run`.
