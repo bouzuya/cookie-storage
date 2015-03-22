@@ -17,3 +17,7 @@ $ npm install cookie-storage
 # Development
 
 See `npm run`.
+
+## License
+
+[MIT](LICENSE)
