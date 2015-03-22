@@ -13,6 +13,12 @@ describe 'CookieStorage', ->
     it 'should be 0', ->
       assert @storage.length is 0
 
+    it 'works', ->
+      document.cookie = 'a=1'
+      assert @storage.length is 1
+      document.cookie = 'a=1;b=2'
+      assert @storage.length is 2
+
   describe '#key', ->
     beforeEach ->
       document.cookie = 'a=1;b=2'

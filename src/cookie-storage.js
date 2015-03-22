@@ -16,7 +16,12 @@ class CookieStorage {
       secure: false
     };
     // readonly attribute unsigned long length;
-    this.length = 0;
+    Object.defineProperty(this, 'length', {
+      get: () => {
+        var parsed = this._parse(document.cookie);
+        return Object.keys(parsed).length;
+      }
+    });
   }
 
   // void clear();
@@ -82,6 +87,7 @@ class CookieStorage {
   }
 
   _parse(s) {
+    if (!this._isDefined(s) || s.length === 0) return {};
     var parsed = {};
     var pattern = new RegExp('\\s*;\\s*');
     s.split(pattern).forEach((i) => {
