@@ -1,7 +1,7 @@
 class CookieStorage {
   // TODO
   constructor() {
-    // define length property
+    this.length = 0;
   }
 
   // TODO
