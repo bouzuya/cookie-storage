@@ -18,9 +18,10 @@ class CookieStorage {
   clear() {
   }
 
-  // TODO
   // [NameGetter] DOMString getItem(in DOMString key);
   getItem(key) {
+    var parsed = this._parse(document.cookie);
+    return parsed[key];
   }
 
   // [IndexGetter] DOMString key(in unsigned long index);

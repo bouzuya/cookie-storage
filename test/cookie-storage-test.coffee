@@ -25,8 +25,15 @@ describe 'CookieStorage', ->
       assert @storage.key(1) is 'b'
 
   describe '#getItem', ->
+    beforeEach ->
+      document.cookie = 'a=1;b=2'
+
     it 'should be a function', ->
       assert typeof @storage.getItem is 'function'
+
+    it 'works', ->
+      assert @storage.getItem('a') is '1'
+      assert @storage.getItem('b') is '2'
 
   describe '#setItem', ->
     it 'should be a function', ->
