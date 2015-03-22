@@ -1,5 +1,6 @@
 babel = require 'gulp-babel'
 coffee = require 'gulp-coffee'
+del = require 'del'
 espower = require 'gulp-espower'
 gulp = require 'gulp'
 gutil = require 'gulp-util'
@@ -38,6 +39,12 @@ gulp.task 'build-test-dev', ->
     .pipe ignoreError espower()
     .pipe sourcemaps.write()
     .pipe gulp.dest './.tmp/'
+
+gulp.task 'clean', (done) ->
+  del [
+    './dist'
+    './.tmp'
+  ], done
 
 gulp.task 'default', ['build']
 
