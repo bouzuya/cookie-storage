@@ -9,6 +9,21 @@ describe 'CookieStorage', ->
   afterEach ->
     delete global.document
 
+  describe '#constructor', ->
+    it 'works', ->
+      @storage = new CookieStorage(path: '/')
+      @storage.setItem 'b', '2'
+      assert document.cookie is 'b=2;path=/'
+      @storage = new CookieStorage(domain: 'example.com')
+      @storage.setItem 'c', '3'
+      assert document.cookie is 'c=3;domain=example.com'
+      @storage = new CookieStorage(expires: new Date(1427005235068))
+      @storage.setItem 'd', '4'
+      assert document.cookie is 'd=4;expires=Sun, 22 Mar 2015 06:20:35 GMT'
+      @storage = new CookieStorage(secure: true)
+      @storage.setItem 'e', '5'
+      assert document.cookie is 'e=5;secure'
+
   describe '#length', ->
     it 'should be 0', ->
       assert @storage.length is 0
@@ -62,7 +77,7 @@ describe 'CookieStorage', ->
       assert typeof @storage.removeItem is 'function'
 
     it 'works', ->
-      @storage.removeItem('a')
+      @storage.removeItem 'a'
       assert document.cookie is 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT'
 
   describe '#clear', ->

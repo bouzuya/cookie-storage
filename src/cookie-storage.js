@@ -7,14 +7,14 @@
 //   void clear();
 // };
 class CookieStorage {
-  // TODO
-  constructor() {
-    this._defaultOptions = {
+  constructor(options) {
+    options = options || {};
+    this._defaultOptions = this._extends({
       path: null,
       domain: null,
       expires: null,
       secure: false
-    };
+    }, options);
     // readonly attribute unsigned long length;
     Object.defineProperty(this, 'length', {
       get: () => {
