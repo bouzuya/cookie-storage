@@ -1,7 +1,7 @@
 {
   "name": "cookie-storage",
   "description": "A Web Storage interface for Cookie",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "authors": {
     "name": "bouzuya",
     "email": "m@bouzuya.net",
@@ -19,5 +19,5 @@
     "storage"
   ],
   "license": "MIT",
-  "main": "index.js"
+  "main": "./dist/cookie-storage.js"
 }
