@@ -6,7 +6,7 @@
 //   [NameDeleter] void removeItem(in DOMString key);
 //   void clear();
 // };
-class CookieStorage {
+export class CookieStorage {
   constructor(options) {
     options = options || {};
     this._defaultOptions = this._extends({
@@ -105,5 +105,3 @@ class CookieStorage {
     return parsed;
   }
 }
-
-export { CookieStorage };
