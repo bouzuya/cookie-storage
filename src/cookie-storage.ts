@@ -41,8 +41,9 @@ export class CookieStorage implements Storage {
 
   removeItem(key: string): void {
     const data = '';
-    const options = Object.assign({}, this._defaultOptions);
-    options.expires = new Date(0);
+    const options = Object.assign({}, this._defaultOptions, {
+      expires: new Date(0)
+    });
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
   }
