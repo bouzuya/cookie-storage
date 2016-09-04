@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "coffee-script": "^1.9.1",
-    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-coffee": "^2.3.1",
@@ -20,7 +19,8 @@
     "gulp-mocha": "^2.0.0",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
-    "power-assert": "^0.10.2"
+    "power-assert": "^0.10.2",
+    "rimraf": "2.5.4"
   },
   "homepage": "https://github.com/bouzuya/cookie-storage",
   "keywords": [
@@ -36,7 +36,7 @@
   },
   "scripts": {
     "build": "gulp build",
-    "clean": "gulp clean",
+    "clean": "rimraf .tmp dist",
     "test": "gulp test",
     "watch": "gulp watch"
   }
