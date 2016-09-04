@@ -49,6 +49,7 @@
     "clean": "rimraf .tmp dist",
     "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'dist/'",
     "copy:js": "cpx '.tmp/es5/src/**/*.js' 'dist/'",
+    "prepublish": "npm-run-all -s 'clean' 'build'",
     "test": "gulp test",
     "watch": "gulp watch"
   }
