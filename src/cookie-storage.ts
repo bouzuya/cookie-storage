@@ -1,22 +1,16 @@
 import { Storage } from './storage';
-
-export interface CookieOptions {
-  path?: string | null;
-  domain?: string | null;
-  expires?: Date | null;
-  secure?: boolean;
-}
+import { CookieOptions } from './cookie-options';
 
 export class CookieStorage implements Storage {
   private _defaultOptions: CookieOptions;
 
-  constructor(options?: CookieOptions) {
+  constructor(defaultOptions?: CookieOptions) {
     this._defaultOptions = Object.assign({
       path: null,
       domain: null,
       expires: null,
       secure: false
-    }, options);
+    }, defaultOptions);
   }
 
   get length(): number {
