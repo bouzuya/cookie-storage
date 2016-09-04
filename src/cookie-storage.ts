@@ -3,8 +3,7 @@ import { Storage } from './storage';
 export class CookieStorage implements Storage {
   private _defaultOptions: any;
 
-  constructor(options: any) {
-    options = options || {};
+  constructor(options?: any) {
     this._defaultOptions = Object.assign({
       path: null,
       domain: null,
@@ -42,7 +41,6 @@ export class CookieStorage implements Storage {
   }
 
   setItem(key: string, data: string, options?: any): void {
-    options = options || {};
     options = Object.assign({}, this._defaultOptions, options);
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
