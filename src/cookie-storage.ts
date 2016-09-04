@@ -1,9 +1,16 @@
 import { Storage } from './storage';
 
-export class CookieStorage implements Storage {
-  private _defaultOptions: any;
+export interface CookieOptions {
+  path?: string | null;
+  domain?: string | null;
+  expires?: Date | null;
+  secure?: boolean;
+}
 
-  constructor(options?: any) {
+export class CookieStorage implements Storage {
+  private _defaultOptions: CookieOptions;
+
+  constructor(options?: CookieOptions) {
     this._defaultOptions = Object.assign({
       path: null,
       domain: null,
@@ -40,13 +47,13 @@ export class CookieStorage implements Storage {
     document.cookie = formatted;
   }
 
-  setItem(key: string, data: string, options?: any): void {
+  setItem(key: string, data: string, options?: CookieOptions): void {
     options = Object.assign({}, this._defaultOptions, options);
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
   }
 
-  _format(k: string, d: string, o: any): string {
+  _format(k: string, d: string, o: CookieOptions): string {
     return [
       encodeURIComponent(k),
       '=',
@@ -55,7 +62,7 @@ export class CookieStorage implements Storage {
     ].join('');
   }
 
-  _formatOptions(o: any): string {
+  _formatOptions(o: CookieOptions): string {
     return [
       this._isDefined(o.path) ? ';path=' + o.path : '',
       this._isDefined(o.domain) ? ';domain=' + o.domain : '',
