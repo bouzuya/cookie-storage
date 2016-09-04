@@ -11,7 +11,9 @@ $ npm install cookie-storage
 # Usage
 
 ```javascript
-window.cookieStorage = new CookieStorage();
+import { CookieStorage } from 'cookie-storage';
+
+const cookieStorage = new CookieStorage();
 
 // Web Storage interface
 cookieStorage.length === 0;
@@ -38,11 +40,23 @@ cookieStorage.setItem('key', 'value', {
   expires: new Date(),
   secure: true
 });
+
+// Use default cookie options
+const storage = new CookieStorage({
+  path: '/',
+  domain: 'example.com',
+  expires: new Date(),
+  secure: true
+});
+storage.setItem('key', 'value'); // ;path=/;domain=example.com;...
 ```
 
 # Development
 
-See `npm run`.
+```
+$ npm install
+$ npm run watch
+```
 
 ## License
 
