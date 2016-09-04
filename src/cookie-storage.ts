@@ -1,13 +1,6 @@
-// interface Storage {
-//   readonly attribute unsigned long length;
-//   [IndexGetter] DOMString key(in unsigned long index);
-//   [NameGetter] DOMString getItem(in DOMString key);
-//   [NameSetter] void setItem(in DOMString key, in DOMString data);
-//   [NameDeleter] void removeItem(in DOMString key);
-//   void clear();
-// };
+import { Storage } from './storage';
 
-export class CookieStorage {
+export class CookieStorage implements Storage {
   constructor(options: any) {
     options = options || {};
     this._defaultOptions = this._extends({
