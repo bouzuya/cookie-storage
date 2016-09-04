@@ -50,7 +50,7 @@
     "storage"
   ],
   "license": "MIT",
-  "main": "./lib/cookie-storage.js",
+  "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bouzuya/cookie-storage.git"
