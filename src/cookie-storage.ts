@@ -63,20 +63,21 @@ export class CookieStorage implements Storage {
   }
 
   _formatOptions(o: CookieOptions): string {
+    const { path, domain, expires, secure } = o;
     return [
-      this._isDefined(o.path) ? ';path=' + o.path : '',
-      this._isDefined(o.domain) ? ';domain=' + o.domain : '',
-      this._isDefined(o.expires) ? ';expires=' + o.expires.toUTCString() : '',
-      this._isDefined(o.secure) && o.secure ? ';secure' : ''
+      typeof path === 'undefined' || path === null
+        ? '' : ';path=' + path,
+      typeof domain === 'undefined' || domain === null
+        ? '' : ';domain=' + domain,
+      typeof expires === 'undefined' || expires === null
+        ? '' : ';expires=' + o.expires.toUTCString(),
+      typeof secure === 'undefined' || secure === null || secure === false
+        ? '' : ';secure'
     ].join('');
   }
 
-  _isDefined(o: any): boolean {
-    return typeof o !== 'undefined' && o !== null;
-  }
-
   _parse(s: string): { [key: string]: string; } {
-    if (!this._isDefined(s) || s.length === 0) return {};
+    if (s.length === 0) return {};
     const parsed: { [key: string]: string; } = {};
     const pattern = new RegExp('\\s*;\\s*');
     s.split(pattern).forEach((i) => {
