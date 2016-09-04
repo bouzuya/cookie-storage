@@ -1,6 +1,6 @@
 import * as assert from 'power-assert';
-import { CookieStorage } from '../src/';
 import beater from 'beater';
+import { CookieStorage } from '../src/';
 
 const { test, fixture } = beater();
 
