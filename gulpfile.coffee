@@ -39,8 +39,6 @@ gulp.task 'build-test-dev', ->
     .pipe sourcemaps.write()
     .pipe gulp.dest './.tmp/'
 
-gulp.task 'default', ['build']
-
 gulp.task 'test', ['build', 'build-test'], ->
   gulp.src './.tmp/*'
     .pipe mocha()
