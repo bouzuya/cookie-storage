@@ -7,14 +7,32 @@
     "email": "m@bouzuya.net",
     "url": "http://bouzuya.net"
   },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "beater": {
+    "dir": "./.tmp/es5/test/",
+    "require": [
+      "./scripts/enable-power-assert.js"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/bouzuya/cookie-storage/issues"
   },
   "devDependencies": {
+    "@types/node": "6.0.38",
+    "@types/power-assert": "0.0.27",
+    "@types/proxyquire": "1.3.26",
+    "@types/sinon": "1.16.29",
     "babel-cli": "6.14.0",
     "babel-preset-es2015": "6.14.0",
+    "beater": "0.4.1",
+    "beater-cli": "0.2.4",
     "coffee-script": "^1.9.1",
     "cpx": "1.4.0",
+    "espower-loader": "1.0.1",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-coffee": "^2.3.1",
@@ -23,8 +41,10 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
     "npm-run-all": "3.1.0",
-    "power-assert": "^0.10.2",
+    "power-assert": "1.4.1",
+    "proxyquire": "1.7.10",
     "rimraf": "2.5.4",
+    "sinon": "1.17.5",
     "typescript": "2.0.2"
   },
   "files": [
@@ -50,7 +70,7 @@
     "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'dist/'",
     "copy:js": "cpx '.tmp/es5/src/**/*.js' 'dist/'",
     "prepublish": "npm-run-all -s 'clean' 'build'",
-    "test": "gulp test",
+    "test": "beater",
     "watch": "gulp watch"
   }
 }
