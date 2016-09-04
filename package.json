@@ -41,7 +41,7 @@
     "watch": "0.19.2"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "homepage": "https://github.com/bouzuya/cookie-storage",
   "keywords": [
@@ -50,7 +50,7 @@
     "storage"
   ],
   "license": "MIT",
-  "main": "./dist/cookie-storage.js",
+  "main": "./lib/cookie-storage.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bouzuya/cookie-storage.git"
@@ -59,9 +59,9 @@
     "build": "npm-run-all -s 'build:ts' 'build:es2015' -p 'copy:*'",
     "build:es2015": "babel --out-dir .tmp/es5/ .tmp/es2015/",
     "build:ts": "tsc",
-    "clean": "rimraf .tmp dist",
-    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'dist/'",
-    "copy:js": "cpx '.tmp/es5/src/**/*.js' 'dist/'",
+    "clean": "rimraf .tmp lib",
+    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'lib/'",
+    "copy:js": "cpx '.tmp/es5/src/**/*.js' 'lib/'",
     "prepublish": "npm-run-all -s 'clean' 'build'",
     "test": "beater",
     "watch": "npm-run-all -p 'watch:*'",

@@ -2,4 +2,5 @@
 .envrc
 .tmp
 coverage
+lib
 node_modules
