@@ -2,7 +2,6 @@
 .envrc
 .tmp
 .travis.yml
-bower.json
 coverage/
 gulpfile.coffee
 node_modules/
