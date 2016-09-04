@@ -1,6 +1,8 @@
 import { Storage } from './storage';
 
 export class CookieStorage implements Storage {
+  private _defaultOptions: any;
+
   constructor(options: any) {
     options = options || {};
     this._defaultOptions = this._extends({
