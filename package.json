@@ -11,7 +11,10 @@
     "url": "https://github.com/bouzuya/cookie-storage/issues"
   },
   "devDependencies": {
+    "babel-cli": "6.14.0",
+    "babel-preset-es2015": "6.14.0",
     "coffee-script": "^1.9.1",
+    "cpx": "1.4.0",
     "gulp": "^3.8.11",
     "gulp-babel": "^4.0.0",
     "gulp-coffee": "^2.3.1",
@@ -19,6 +22,7 @@
     "gulp-mocha": "^2.0.0",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
+    "npm-run-all": "3.1.0",
     "power-assert": "^0.10.2",
     "rimraf": "2.5.4",
     "typescript": "2.0.2"
@@ -36,8 +40,12 @@
     "url": "https://github.com/bouzuya/cookie-storage.git"
   },
   "scripts": {
-    "build": "gulp build",
+    "build": "npm-run-all -s 'build:ts' 'build:es2015' -p 'copy:*'",
+    "build:es2015": "babel --out-dir .tmp/es5/ .tmp/es2015/",
+    "build:ts": "tsc",
     "clean": "rimraf .tmp dist",
+    "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'dist/'",
+    "copy:js": "cpx '.tmp/es5/src/**/*.js' 'dist/'",
     "test": "gulp test",
     "watch": "gulp watch"
   }
