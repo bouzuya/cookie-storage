@@ -75,7 +75,9 @@ export class CookieStorage implements Storage {
   }
 
   private _getCookie(): string {
-    return document.cookie;
+    return typeof document === 'undefined'
+      ? '' : typeof document.cookie === 'undefined'
+        ? '' : document.cookie;
   }
 
   private _parse(s: string): { [key: string]: string; } {
