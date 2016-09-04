@@ -2,6 +2,8 @@
 
 A Web Storage interface for Cookie.
 
+[Storage interface spec](https://html.spec.whatwg.org/multipage/webstorage.html#the-storage-interface).
+
 # Installation
 
 ```
@@ -15,7 +17,6 @@ import { CookieStorage } from 'cookie-storage';
 
 const cookieStorage = new CookieStorage();
 
-// Web Storage interface
 cookieStorage.length === 0;
 
 cookieStorage.setItem('key', 'value');
