@@ -68,9 +68,9 @@ export class CookieStorage implements Storage {
     return typeof o !== 'undefined' && o !== null;
   }
 
-  _parse(s: string): any {
+  _parse(s: string): { [key: string]: string; } {
     if (!this._isDefined(s) || s.length === 0) return {};
-    const parsed = {};
+    const parsed: { [key: string]: string; } = {};
     const pattern = new RegExp('\\s*;\\s*');
     s.split(pattern).forEach((i) => {
       const [encodedKey, encodedValue] = i.split('=');
