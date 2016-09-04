@@ -20,22 +20,22 @@ export class CookieStorage implements Storage {
   }
 
   get length(): number {
-    const parsed = this._parse(this._cookie());
+    const parsed = this._parse(this._getCookie());
     return Object.keys(parsed).length;
   }
 
   clear(): void {
-    const parsed = this._parse(this._cookie());
+    const parsed = this._parse(this._getCookie());
     Object.keys(parsed).forEach(key => this.removeItem(key));
   }
 
   getItem(key: string): string | null {
-    const parsed = this._parse(this._cookie());
+    const parsed = this._parse(this._getCookie());
     return parsed[key];
   }
 
   key(index: number): string | null {
-    const parsed = this._parse(this._cookie());
+    const parsed = this._parse(this._getCookie());
     return Object.keys(parsed).sort()[index];
   }
 
@@ -45,21 +45,13 @@ export class CookieStorage implements Storage {
       expires: new Date(0)
     });
     const formatted = this._format(key, data, options);
-    this._cookie(formatted);
+    this._setCookie(formatted);
   }
 
   setItem(key: string, data: string, options?: CookieOptions): void {
     options = Object.assign({}, this._defaultOptions, options);
     const formatted = this._format(key, data, options);
-    this._cookie(formatted);
-  }
-
-  _cookie(value?: string): string | void {
-    if (typeof value === 'undefined') {
-      return document.cookie;
-    } else {
-      document.cookie = value;
-    }
+    this._setCookie(formatted);
   }
 
   _format(k: string, d: string, o: CookieOptions): string {
@@ -85,6 +77,10 @@ export class CookieStorage implements Storage {
     ].join('');
   }
 
+  private _getCookie(): string {
+    return document.cookie;
+  }
+
   _parse(s: string): { [key: string]: string; } {
     if (s.length === 0) return {};
     const parsed: { [key: string]: string; } = {};
@@ -96,5 +92,9 @@ export class CookieStorage implements Storage {
       parsed[key] = value;
     });
     return parsed;
+  }
+
+  private _setCookie(value: string): void {
+    document.cookie = value;
   }
 }
