@@ -11,13 +11,11 @@ export class CookieStorage implements Storage {
       expires: null,
       secure: false
     }, options);
-    // readonly attribute unsigned long length;
-    Object.defineProperty(this, 'length', {
-      get: () => {
-        const parsed = this._parse(document.cookie);
-        return Object.keys(parsed).length;
-      }
-    });
+  }
+
+  get length(): number {
+    const parsed = this._parse(document.cookie);
+    return Object.keys(parsed).length;
   }
 
   // void clear();
