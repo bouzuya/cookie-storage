@@ -45,17 +45,21 @@ export class CookieStorage implements Storage {
       expires: new Date(0)
     });
     const formatted = this._format(key, data, options);
-    document.cookie = formatted;
+    this._cookie(formatted);
   }
 
   setItem(key: string, data: string, options?: CookieOptions): void {
     options = Object.assign({}, this._defaultOptions, options);
     const formatted = this._format(key, data, options);
-    document.cookie = formatted;
+    this._cookie(formatted);
   }
 
-  _cookie(): string {
-    return document.cookie;
+  _cookie(value?: string): string | void {
+    if (typeof value === 'undefined') {
+      return document.cookie;
+    } else {
+      document.cookie = value;
+    }
   }
 
   _format(k: string, d: string, o: CookieOptions): string {
