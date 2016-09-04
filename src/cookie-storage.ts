@@ -21,22 +21,25 @@ export class CookieStorage implements Storage {
 
   get length(): number {
     const parsed = this._parse(this._getCookie());
-    return Object.keys(parsed).length;
+    const keys = Object.keys(parsed);
+    return keys.length;
   }
 
   clear(): void {
     const parsed = this._parse(this._getCookie());
-    Object.keys(parsed).forEach(key => this.removeItem(key));
+    const keys = Object.keys(parsed);
+    keys.forEach(key => this.removeItem(key));
   }
 
   getItem(key: string): string | null {
     const parsed = this._parse(this._getCookie());
-    return parsed[key];
+    return parsed.hasOwnProperty(key) ? parsed[key] : null;
   }
 
   key(index: number): string | null {
     const parsed = this._parse(this._getCookie());
-    return Object.keys(parsed).sort()[index];
+    const sortedKeys = Object.keys(parsed).sort();
+    return index < sortedKeys.length ? sortedKeys[index] : null;
   }
 
   removeItem(key: string): void {
