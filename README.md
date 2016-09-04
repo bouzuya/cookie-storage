@@ -73,6 +73,12 @@ $ npm run watch
 
 [MIT](LICENSE)
 
+## Related Project
+
+- [bouzuya/simple-memory-storage][]
+
+[bouzuya/simple-memory-storage]: https://github.com/bouzuya/simple-memory-storage
+
 ## Author
 
 [bouzuya][user] &lt;[m@bouzuya.net][email]&gt; ([http://bouzuya.net][url])
