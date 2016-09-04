@@ -58,6 +58,16 @@ $ npm install
 $ npm run watch
 ```
 
+## Badges
+
+[![NPM][npm-badge]][npm]
+[![Travis CI][travis-ci-badge]][travis-ci]
+
+[npm]: https://www.npmjs.com/package/cookie-storage
+[npm-badge]: https://img.shields.io/npm/v/cookie-storage.svg
+[travis-ci]: https://travis-ci.org/bouzuya/cookie-storage
+[travis-ci-badge]: https://img.shields.io/travis/bouzuya/cookie-storage.svg
+
 ## License
 
 [MIT](LICENSE)
@@ -66,12 +76,6 @@ $ npm run watch
 
 [bouzuya][user] &lt;[m@bouzuya.net][email]&gt; ([http://bouzuya.net][url])
 
-## Status
-
-[![Build Status][travis-badge]][travis]
-
 [user]: https://github.com/bouzuya
 [email]: mailto:m@bouzuya.net
 [url]: http://bouzuya.net
-[travis]: https://travis-ci.org/bouzuya/cookie-storage
-[travis-badge]: https://travis-ci.org/bouzuya/cookie-storage.svg?branch=master
