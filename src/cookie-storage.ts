@@ -74,7 +74,7 @@ export class CookieStorage implements Storage {
       typeof domain === 'undefined' || domain === null
         ? '' : ';domain=' + domain,
       typeof expires === 'undefined' || expires === null
-        ? '' : ';expires=' + o.expires.toUTCString(),
+        ? '' : ';expires=' + expires.toUTCString(),
       typeof secure === 'undefined' || secure === null || secure === false
         ? '' : ';secure'
     ].join('');
