@@ -18,26 +18,22 @@ export class CookieStorage implements Storage {
     return Object.keys(parsed).length;
   }
 
-  // void clear();
-  clear() {
+  clear(): void {
     const parsed = this._parse(document.cookie);
     Object.keys(parsed).forEach(key => this.removeItem(key));
   }
 
-  // [NameGetter] DOMString getItem(in DOMString key);
-  getItem(key) {
+  getItem(key: string): string | null {
     const parsed = this._parse(document.cookie);
     return parsed[key];
   }
 
-  // [IndexGetter] DOMString key(in unsigned long index);
-  key(index) {
+  key(index: number): string | null {
     const parsed = this._parse(document.cookie);
     return Object.keys(parsed).sort()[index];
   }
 
-  // [NameDeleter] void removeItem(in DOMString key);
-  removeItem(key) {
+  removeItem(key: string): void {
     const data = '';
     const options = this._clone(this._defaultOptions);
     options.expires = new Date(0);
@@ -45,26 +41,25 @@ export class CookieStorage implements Storage {
     document.cookie = formatted;
   }
 
-  // [NameSetter] void setItem(in DOMString key, in DOMString data);
-  setItem(key, data, options) {
+  setItem(key: string, data: string, options?: any): void {
     options = options || {};
     options = this._extends(this._clone(this._defaultOptions), options);
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
   }
 
-  _clone(o) {
+  _clone(o: any): any {
     const cloned = {};
     Object.keys(o).forEach(i => cloned[i] = o[i]);
     return cloned;
   }
 
-  _extends(o1, o2) {
+  _extends(o1: any, o2: any): any {
     Object.keys(o2).forEach(i => o1[i] = o2[i]);
     return o1;
   }
 
-  _format(k, d, o) {
+  _format(k: string, d: string, o: any): string {
     return [
       encodeURIComponent(k),
       '=',
@@ -73,7 +68,7 @@ export class CookieStorage implements Storage {
     ].join('');
   }
 
-  _formatOptions(o) {
+  _formatOptions(o: any): string {
     return [
       this._isDefined(o.path) ? ';path=' + o.path : '',
       this._isDefined(o.domain) ? ';domain=' + o.domain : '',
@@ -82,11 +77,11 @@ export class CookieStorage implements Storage {
     ].join('');
   }
 
-  _isDefined(o) {
+  _isDefined(o: any): boolean {
     return typeof o !== 'undefined' && o !== null;
   }
 
-  _parse(s) {
+  _parse(s: string): any {
     if (!this._isDefined(s) || s.length === 0) return {};
     const parsed = {};
     const pattern = new RegExp('\\s*;\\s*');
