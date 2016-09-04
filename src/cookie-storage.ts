@@ -20,22 +20,22 @@ export class CookieStorage implements Storage {
   }
 
   get length(): number {
-    const parsed = this._parse(document.cookie);
+    const parsed = this._parse(this._cookie());
     return Object.keys(parsed).length;
   }
 
   clear(): void {
-    const parsed = this._parse(document.cookie);
+    const parsed = this._parse(this._cookie());
     Object.keys(parsed).forEach(key => this.removeItem(key));
   }
 
   getItem(key: string): string | null {
-    const parsed = this._parse(document.cookie);
+    const parsed = this._parse(this._cookie());
     return parsed[key];
   }
 
   key(index: number): string | null {
-    const parsed = this._parse(document.cookie);
+    const parsed = this._parse(this._cookie());
     return Object.keys(parsed).sort()[index];
   }
 
@@ -51,6 +51,10 @@ export class CookieStorage implements Storage {
     options = Object.assign({}, this._defaultOptions, options);
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
+  }
+
+  _cookie(): string {
+    return document.cookie;
   }
 
   _format(k: string, d: string, o: CookieOptions): string {
