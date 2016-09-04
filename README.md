@@ -4,13 +4,13 @@ A Web Storage interface for Cookie.
 
 [Storage interface spec](https://html.spec.whatwg.org/multipage/webstorage.html#the-storage-interface).
 
-# Installation
+## Installation
 
 ```
 $ npm install cookie-storage
 ```
 
-# Usage
+## Usage
 
 ```javascript
 import { CookieStorage } from 'cookie-storage';
@@ -52,7 +52,7 @@ const storage = new CookieStorage({
 storage.setItem('key', 'value'); // ;path=/;domain=example.com;...
 ```
 
-# Development
+## Development
 
 ```
 $ npm install
