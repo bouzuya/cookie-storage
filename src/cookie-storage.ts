@@ -5,7 +5,7 @@ export class CookieStorage implements Storage {
 
   constructor(options: any) {
     options = options || {};
-    this._defaultOptions = this._extends({
+    this._defaultOptions = Object.assign({
       path: null,
       domain: null,
       expires: null,
@@ -43,7 +43,7 @@ export class CookieStorage implements Storage {
 
   setItem(key: string, data: string, options?: any): void {
     options = options || {};
-    options = this._extends(this._clone(this._defaultOptions), options);
+    options = Object.assign(this._clone(this._defaultOptions), options);
     const formatted = this._format(key, data, options);
     document.cookie = formatted;
   }
@@ -52,11 +52,6 @@ export class CookieStorage implements Storage {
     const cloned = {};
     Object.keys(o).forEach(i => cloned[i] = o[i]);
     return cloned;
-  }
-
-  _extends(o1: any, o2: any): any {
-    Object.keys(o2).forEach(i => o1[i] = o2[i]);
-    return o1;
   }
 
   _format(k: string, d: string, o: any): string {
