@@ -54,7 +54,7 @@ export class CookieStorage implements Storage {
     this._setCookie(formatted);
   }
 
-  _format(k: string, d: string, o: CookieOptions): string {
+  private _format(k: string, d: string, o: CookieOptions): string {
     return [
       encodeURIComponent(k),
       '=',
@@ -63,7 +63,7 @@ export class CookieStorage implements Storage {
     ].join('');
   }
 
-  _formatOptions(o: CookieOptions): string {
+  private _formatOptions(o: CookieOptions): string {
     const { path, domain, expires, secure } = o;
     return [
       typeof path === 'undefined' || path === null
@@ -81,7 +81,7 @@ export class CookieStorage implements Storage {
     return document.cookie;
   }
 
-  _parse(s: string): { [key: string]: string; } {
+  private _parse(s: string): { [key: string]: string; } {
     if (s.length === 0) return {};
     const parsed: { [key: string]: string; } = {};
     const pattern = new RegExp('\\s*;\\s*');
