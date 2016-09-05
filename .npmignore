@@ -1,9 +1,0 @@
-*.log
-.envrc
-.tmp
-.travis.yml
-coverage/
-gulpfile.coffee
-node_modules/
-src/
-test/
