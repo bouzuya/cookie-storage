@@ -5,7 +5,7 @@ import { formatCookie } from '../src/';
 const { test } = beater();
 
 test('format', () => {
-  assert(formatCookie('', '', {}) === '');
+  assert(formatCookie('', '', {}) === '=');
   assert(formatCookie('a', '1', {}) === 'a=1');
   assert(formatCookie('b', '2', { path: '/' }) === 'b=2;path=/');
   assert(formatCookie('c', '3', { domain: 'example.com' })

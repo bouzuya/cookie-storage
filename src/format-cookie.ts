@@ -15,7 +15,6 @@ const formatOptions = (o: CookieOptions): string => {
 };
 
 const formatCookie = (k: string, d: string, o: CookieOptions): string => {
-  if (k.length === 0) return '';
   return [
     encodeURIComponent(k),
     '=',
