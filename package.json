@@ -68,5 +68,6 @@
     "watch:es2015": "npm run 'build:es2015' -- --watch",
     "watch:test": "watch --wait 2 'npm test' '.tmp/es5/'",
     "watch:ts": "npm run 'build:ts' -- --watch"
-  }
+  },
+  "typings": "./lib/index.d.ts"
 }
