@@ -1,6 +1,6 @@
-# cookie-storage
+![cookie-storage](https://cloud.githubusercontent.com/assets/1221346/18493417/7243e872-7a4b-11e6-933a-1c3fe3cfaa71.png)
 
-A Web Storage interface for Cookie.
+cookie-storage: A Web Storage interface for Cookie.
 
 [Storage interface spec](https://html.spec.whatwg.org/multipage/webstorage.html#the-storage-interface).
 
