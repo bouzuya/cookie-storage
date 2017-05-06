@@ -62,4 +62,7 @@ export class CookieStorage implements Storage {
   private _setCookie(value: string): void {
     document.cookie = value;
   }
+
+  [key: string]: any;
+  [index: number]: string;
 }
