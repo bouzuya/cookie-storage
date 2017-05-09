@@ -191,14 +191,14 @@ test(category + 'deleteReflect', fixture(dummyDocument, () =>{
 test(category + 'defineProperty', fixture(dummyDocument, () =>{
   document.cookie = '';
   const storage = new CookieStorage();
-  Object.defineProperty(storage, 'a', '1')
+  Object.defineProperty(storage, 'a', {value: '1'});
   assert(document.cookie === 'a=1');
 }));
 
 test(category + 'definePropertyReflect', fixture(dummyDocument, () =>{
   document.cookie = '';
   const storage = new CookieStorage();
-  Reflect.defineProperty(storage, 'a', '1')
+  Reflect.defineProperty(storage, 'a', {value: '1'});
   assert(document.cookie === 'a=1');
 }));
 
