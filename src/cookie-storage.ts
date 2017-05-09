@@ -79,10 +79,22 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
         //not necessary to implement. Calling Object.preventExtensions(p); works correctly with no modifications on the proxy object.
     
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor
-    //This might not necessary to emulate LocalStorage and SessionStorage - both of those methods basically ignore propertyDescritors when setting. However, it seems to be nice!
-    getOwnPropertyDescriptor(target, p) {
-        return Object.getOwnPropertyDescriptor(target, p);
+    //This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys.
+    //any is necessary because of glitch in type definitions. See https://github.com/Microsoft/TypeScript/pull/15694
+    getOwnPropertyDescriptor(target, p): any {
+        if (p in target) {
+            return undefined;
+        }
+        else {
+            return {
+                value: target.getItem(p.toString()), 
+                writable: true, 
+                enumerable: true, 
+                configurable: true
+            };
+        }
     },
+
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/has
     has(target, p) {
         return target.getItem(p.toString()) ? true : false;
@@ -119,22 +131,27 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
         }
         else {
             //Todo: maybe don't actually define a property? This is the only way to get "attributes" to be perserved, but localStorage doesn't do this.
-            Object.defineProperty(target, p, attributes);
+            //Actually, this is probably a bad idea, since it seems to mess up Object.keys() and isn't how localStorage behaves.
+            //Object.defineProperty(target, p, attributes);
             target.setItem(p.toString(), attributes.value);
             return true;
         }
     },
     //enumerate? (target: T): PropertyKey[];
         //obsolete: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/enumerate
+
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/ownKeys
     ownKeys(target) {
-        //todo: this code is duplicated from the private _getCookie() method on the CookieStorage object. I need to find the right pattern so you don't have to duplicate this private method in the proxy object.
-        //todo: I only added this line because I got a complier warning "target was declared but never used". Need to find a better way to remove this
-        console.log(target);
-        //const parsed = parseCookies(document.cookie);
-        //return Object.keys(parsed);
-        return ["a", "b"];
-    },
+        let keys: PropertyKey[] = [];
+        for (let i = 0; i < target.length; i++) {
+            if (target.key(i) == null) {
+                continue;
+            } else {
+                keys.push(target.key(i) as PropertyKey);
+            }
+        }
+        return keys;
+    }
     //apply? (target: T, thisArg: any, argArray?: any): any;
         //not applicable to proxies for clasess, only proxies to functions
     //construct? (target: T, argArray: any, newTarget?: any): object;

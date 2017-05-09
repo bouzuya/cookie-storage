@@ -164,15 +164,31 @@ test(category + 'objectKeys', fixture(dummyDocument, () =>{
   document.cookie = "a=1;b=2";
   const storage = new CookieStorage();
   const keys = Object.keys(storage);
-  assert(keys.length === 0); //Todo: this should really be 2. Need to investigate why it's failing
-  //assert(keys[0] === 'a');
-  //assert(keys[1] === 'b');
+  assert(keys.length === 2);
+  assert(keys[0] === 'a');
+  assert(keys[1] === 'b');
+}));
+
+test(category + 'getOwnPropertyDescriptorOnProperty', fixture(dummyDocument, () =>{
+  document.cookie = "a=1;b=2";
+  const storage = new CookieStorage();
+  const descriptor = Object.getOwnPropertyDescriptor(storage,"a");
+  assert(descriptor.value === '1');
+  assert(descriptor.writable === true);
+  assert(descriptor.enumerable === true);
+  assert(descriptor.configurable === true);
+}));
+
+test(category + 'getOwnPropertyDescriptorOnFunction', fixture(dummyDocument, () =>{
+  const storage = new CookieStorage();
+  const descriptor = Object.getOwnPropertyDescriptor(storage,"getItem");
+  assert(descriptor === undefined);
 }));
 
 //Todo: this illustrates a wierdness in the current implmentation - define property is actually creating a property on the proxy object, but other methods of defining properties are not. I should remove this test after solving that.
-test(category + 'hasOperatorAfterDefineProperty', fixture(dummyDocument, () =>{
-  const storage = new CookieStorage();
-  Object.defineProperty(storage, "b", {value: "2"});
-  assert('b' in storage === true);
-}));
+// test(category + 'hasOperatorAfterDefineProperty', fixture(dummyDocument, () =>{
+//   const storage = new CookieStorage();
+//   Object.defineProperty(storage, "b", {value: "2"});
+//   assert('b' in storage === true);
+// }));
 
