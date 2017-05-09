@@ -69,18 +69,61 @@ export class CookieStorage implements Storage {
 }
 
 var CookieStorageHandler: ProxyHandler<CookieStorage> = {
-    //getPrototypeOf? (target: T): object | null;
-        //Need to investigate
-    //setPrototypeOf? (target: T, v: any): boolean;
-        //Need to investigate
-    //isExtensible? (target: T): boolean;
-        //not necessary to implement. Calling Object.isExtensible(p); works correctly with no modifications on the proxy object.
-    //preventExtensions? (target: T): boolean;
-        //not necessary to implement. Calling Object.preventExtensions(p); works correctly with no modifications on the proxy object.
+    get(target, p) {
+        //if the user makes calls to setItem(), length(), etc. pass them through
+        if (p in target) {
+            return target[p];
+        }
+        //otherwise, save the property as a cookie
+        else {
+            let result = target.getItem(p.toString())
+            return result ? result : undefined;
+        }
+    },
+    set(target, p, value) {
+        //localStorage and sessionStorage don't do any isExtensible checks before allowing you to create new properties via indexes (e.g. Object.preventExtensions(localStorage); localStorage["a"] = 1; will work). Docume
+        target.setItem(p.toString(), value);
+        return true;
+    },
+    has(target, p) {
+        //if the user is checking for the existance of a builtin method like 'getItem' or 'lenth' this should return true, just like it does for localStorage.
+        if (p in target) {
+            return true;
+        }
+        //otherwise, check whether the cookie exists
+        else {
+            return target.getItem(p.toString()) ? true : false;
+        }
+    },
+    deleteProperty(target, p) {
+        target.removeItem(p.toString());
+        return true;
+    },
+    defineProperty(target, p, attributes) {
+        let isExtensible = Object.isExtensible(target);
+        let alreadyExists = target.getItem(p.toString());
+        if (!isExtensible && !alreadyExists) {
+            throw new TypeError("Can't add property " + p.toString() + ", object is not extensible");
+        }
+        else {
+            target.setItem(p.toString(), attributes.value);
+            return true;
+        }
+    },
+    ownKeys(target) {
+        let keys: PropertyKey[] = [];
+        for (let i = 0; i < target.length; i++) {
+            if (target.key(i) == null) {
+                continue;
+            } else {
+                keys.push(target.key(i) as PropertyKey);
+            }
+        }
+        return keys;
+    },
     
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor
-    //This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys.
-    //any is necessary because of glitch in type definitions. See https://github.com/Microsoft/TypeScript/pull/15694
+    //This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys (since Object.keys will only return "enumerable" keys).
+    //"any" is necessary as the return signature because of glitch in typescript lib definitions, which is being fixed. See https://github.com/Microsoft/TypeScript/pull/15694
     getOwnPropertyDescriptor(target, p): any {
         if (p in target) {
             return undefined;
@@ -93,64 +136,5 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
                 configurable: true
             };
         }
-    },
-
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/has
-    has(target, p) {
-        return target.getItem(p.toString()) ? true : false;
-    },
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/get
-    get(target, p) {
-        //if the user makes calls to setItem(), length(), etc. pass them through
-        if (p in target) {
-            return target[p];
-        }
-        //otherwise, save the property as a cookie
-        else {
-            let result = target.getItem(p.toString())
-            return result ? result : undefined;
-        }
-    },
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set
-    set(target, p, value) {
-        //localStorage and sessionStorage don't do any isExtensible checks before allowing you to create new properties via indexes (e.g. Object.preventExtensions(localStorage); localStorage["a"] = 1; will work)
-        target.setItem(p.toString(), value);
-        return true;
-    },
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/deleteProperty
-    deleteProperty(target, p) {
-        target.removeItem(p.toString());
-        return true;
-    },
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/defineProperty
-    defineProperty(target, p, attributes) {
-        let isExtensible = Object.isExtensible(target);
-        let alreadyExists = target.getItem(p.toString());
-        if (!isExtensible && !alreadyExists) {
-            throw new TypeError("Can't add property " + p.toString() + ", object is not extensible");
-        }
-        else {
-            target.setItem(p.toString(), attributes.value);
-            return true;
-        }
-    },
-    //enumerate? (target: T): PropertyKey[];
-        //obsolete: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/enumerate
-
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/ownKeys
-    ownKeys(target) {
-        let keys: PropertyKey[] = [];
-        for (let i = 0; i < target.length; i++) {
-            if (target.key(i) == null) {
-                continue;
-            } else {
-                keys.push(target.key(i) as PropertyKey);
-            }
-        }
-        return keys;
     }
-    //apply? (target: T, thisArg: any, argArray?: any): any;
-        //not applicable to proxies for clasess, only proxies to functions
-    //construct? (target: T, argArray: any, newTarget?: any): object;
-        //overrides the new operator. Might not be necessary
 };
