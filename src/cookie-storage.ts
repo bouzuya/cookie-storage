@@ -130,9 +130,6 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
             throw new TypeError("Can't add property " + p.toString() + ", object is not extensible");
         }
         else {
-            //Todo: maybe don't actually define a property? This is the only way to get "attributes" to be perserved, but localStorage doesn't do this.
-            //Actually, this is probably a bad idea, since it seems to mess up Object.keys() and isn't how localStorage behaves.
-            //Object.defineProperty(target, p, attributes);
             target.setItem(p.toString(), attributes.value);
             return true;
         }
