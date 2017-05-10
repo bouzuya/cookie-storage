@@ -13,7 +13,9 @@ export class CookieStorage implements Storage {
       expires: null,
       secure: false
     }, defaultOptions);
-    return new Proxy(this, CookieStorageHandler);
+    if (ProxyIsSupported()) {
+        return new Proxy(this, CookieStorageHandler);
+    }   
   }
 
   get length(): number {
@@ -136,5 +138,15 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
                 configurable: true
             };
         }
+    }
+};
+
+export function ProxyIsSupported(): boolean {
+    try {
+        new Proxy({}, {});
+        return true;
+    }
+    catch(e) {
+        return false;
     }
 };
