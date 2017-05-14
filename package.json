@@ -56,18 +56,18 @@
     "url": "https://github.com/bouzuya/cookie-storage.git"
   },
   "scripts": {
-    "build": "npm-run-all -s 'build:ts' 'build:es2015' -p 'copy:*'",
+    "build": "npm-run-all -s build:ts build:es2015 -p copy:*",
     "build:es2015": "babel --out-dir .tmp/es5/ .tmp/es2015/",
     "build:ts": "tsc",
     "clean": "rimraf .tmp lib",
     "copy:dts": "cpx '.tmp/es2015/src/**/*.d.ts' 'lib/'",
     "copy:js": "cpx '.tmp/es5/src/**/*.js' 'lib/'",
-    "prepublish": "npm-run-all -s 'clean' 'build'",
+    "prepublish": "npm-run-all -s clean build",
     "test": "beater",
-    "watch": "npm-run-all -p 'watch:*'",
-    "watch:es2015": "npm run 'build:es2015' -- --watch",
-    "watch:test": "watch --wait 2 'npm test' '.tmp/es5/'",
-    "watch:ts": "npm run 'build:ts' -- --watch"
+    "watch": "npm-run-all -p watch:*",
+    "watch:es2015": "npm run build:es2015 -- --watch",
+    "watch:test": "watch --wait 2 \"npm test\" \".tmp/es5/\"",
+    "watch:ts": "npm run build:ts -- --watch"
   },
   "typings": "./lib/index.d.ts"
 }
