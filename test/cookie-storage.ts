@@ -80,10 +80,10 @@ test(category + 'clear', fixture(dummyDocument, () => {
   assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
 }));
 
-//Test index-related features. These features require that the runtime support the "Proxy" object and won't be present if the runtime does not
+//Test index-related features. These features require that the runtime support the 'Proxy' object and won't be present if the runtime does not
 if (ProxyIsSupported()) {
 
-  //proxy "get" tests
+  //proxy 'get' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/get
 
   test(category + 'getByIndexNumber', fixture(dummyDocument, () => {
@@ -103,18 +103,18 @@ if (ProxyIsSupported()) {
   test(category + 'getInherited', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
-    assert(Object.create(storage)["a"] === '1');
-    assert(Object.create(storage)["b"] === '2');
+    assert(Object.create(storage)['a'] === '1');
+    assert(Object.create(storage)['b'] === '2');
   }));
 
   test(category + 'getReflect', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
-    assert(Reflect.get(storage, "a") === '1');
-    assert(Reflect.get(storage, "b") === '2');
+    assert(Reflect.get(storage, 'a') === '1');
+    assert(Reflect.get(storage, 'b') === '2');
   }));
 
-  //proxy "set" tests
+  //proxy 'set' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set
 
   test(category + 'setByIndex', fixture(dummyDocument, () => {
@@ -145,11 +145,11 @@ if (ProxyIsSupported()) {
     assert(document.cookie === 'a=1');
   }));
 
-  //proxy "has" tests
+  //proxy 'has' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/has
 
   test(category + 'inOperator', fixture(dummyDocument, () => {
-    document.cookie = "a=1";
+    document.cookie = 'a=1';
     const storage = new CookieStorage();
     assert('a' in storage === true);
   }));
@@ -160,18 +160,18 @@ if (ProxyIsSupported()) {
   }));
 
   test(category + 'inOperatorInherited', fixture(dummyDocument, () => {
-    document.cookie = "a=1";
+    document.cookie = 'a=1';
     const storage = new CookieStorage();
     assert('a' in Object.create(storage) === true);
   }));
 
   test(category + 'reflectHas', fixture(dummyDocument, () => {
-    document.cookie = "a=1";
+    document.cookie = 'a=1';
     const storage = new CookieStorage();
     assert(Reflect.has(storage, 'a') === true);
   }));
 
-  //proxy "delete" tests
+  //proxy 'delete' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/deleteProperty
 
   test(category + 'deleteOperator', fixture(dummyDocument, () => {
@@ -188,7 +188,7 @@ if (ProxyIsSupported()) {
     assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   }));
 
-  //proxy "defineProperty" tests
+  //proxy 'defineProperty' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/defineProperty
 
   test(category + 'defineProperty', fixture(dummyDocument, () => {
@@ -205,11 +205,11 @@ if (ProxyIsSupported()) {
     assert(document.cookie === 'a=1');
   }));
 
-  //proxy "ownKeys" tests
+  //proxy 'ownKeys' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/ownKeys
 
   test(category + 'getOwnPropertyNames', fixture(dummyDocument, () => {
-    document.cookie = "a=1;b=2";
+    document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     const propertyNames = Object.getOwnPropertyNames(storage);
     assert(propertyNames.length === 2);
@@ -218,7 +218,7 @@ if (ProxyIsSupported()) {
   }));
 
   test(category + 'objectKeys', fixture(dummyDocument, () => {
-    document.cookie = "a=1;b=2";
+    document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     const keys = Object.keys(storage);
     assert(keys.length === 2);
@@ -227,7 +227,7 @@ if (ProxyIsSupported()) {
   }));
 
   test(category + 'reflectOwnKeys', fixture(dummyDocument, () => {
-    document.cookie = "a=1;b=2";
+    document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     const keys = Reflect.ownKeys(storage);
     assert(keys.length === 2);
@@ -235,13 +235,13 @@ if (ProxyIsSupported()) {
     assert(keys[1] === 'b');
   }));
 
-  //proxy "getOwnPropertyDescriptor" tests
+  //proxy 'getOwnPropertyDescriptor' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor
 
   test(category + 'getOwnPropertyDescriptorOnProperty', fixture(dummyDocument, () => {
-    document.cookie = "a=1";
+    document.cookie = 'a=1';
     const storage = new CookieStorage();
-    const descriptor = Object.getOwnPropertyDescriptor(storage, "a");
+    const descriptor = Object.getOwnPropertyDescriptor(storage, 'a');
     assert(descriptor.value === '1');
     assert(descriptor.writable === true);
     assert(descriptor.enumerable === true);
@@ -250,21 +250,21 @@ if (ProxyIsSupported()) {
 
   test(category + 'getOwnPropertyDescriptorOnFunction', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
-    const descriptor = Object.getOwnPropertyDescriptor(storage, "getItem");
+    const descriptor = Object.getOwnPropertyDescriptor(storage, 'getItem');
     assert(descriptor === undefined);
   }));
 
   test(category + 'getOwnPropertyDescriptorReflect', fixture(dummyDocument, () => {
-    document.cookie = "a=1";
+    document.cookie = 'a=1';
     const storage = new CookieStorage();
-    const descriptor = Reflect.getOwnPropertyDescriptor(storage, "a");
+    const descriptor = Reflect.getOwnPropertyDescriptor(storage, 'a');
     assert(descriptor.value === '1');
     assert(descriptor.writable === true);
     assert(descriptor.enumerable === true);
     assert(descriptor.configurable === true);
   }));
 
-  //proxy "preventExtensions" tests
+  //proxy 'preventExtensions' tests
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/preventExtensions
 
   test(category + 'preventExtensions', fixture(dummyDocument, () => {
@@ -286,19 +286,19 @@ if (ProxyIsSupported()) {
     Object.preventExtensions(storage);
     let expectedError = new Error();
     try {
-      Object.defineProperty(storage, "a", { value: "1" });
+      Object.defineProperty(storage, 'a', { value: '1' });
     }
     catch (e) {
       expectedError = e;
     }
-    assert(expectedError.name === "TypeError");
-    assert(expectedError.message === "Can't add property a, object is not extensible");
+    assert(expectedError.name === 'TypeError');
+    assert(expectedError.message === 'Can\'t add property a, object is not extensible');
   }));
 
   //proxy enumeration test
 
   test(category + 'getOwnPropertyNames', fixture(dummyDocument, () => {
-    document.cookie = "a=1;b=2";
+    document.cookie = 'a=1;b=2';
     const testnames = ['a', 'b'];
     const storage = new CookieStorage();
     for (var name in storage) {

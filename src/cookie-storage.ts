@@ -83,7 +83,7 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     }
   },
   set(target, p, value) {
-    //localStorage and sessionStorage don't do any isExtensible checks before allowing you to create new properties via indexes (e.g. Object.preventExtensions(localStorage); localStorage["a"] = 1; will work). Docume
+    //localStorage and sessionStorage don't do any isExtensible checks before allowing you to create new properties via indexes (e.g. Object.preventExtensions(localStorage); localStorage['a'] = 1; will work). Docume
     target.setItem(p.toString(), value);
     return true;
   },
@@ -105,7 +105,7 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     let isExtensible = Object.isExtensible(target);
     let alreadyExists = target.getItem(p.toString());
     if (!isExtensible && !alreadyExists) {
-      throw new TypeError("Can't add property " + p.toString() + ", object is not extensible");
+      throw new TypeError(`Can't add property ${p.toString()}, object is not extensible`);
     }
     else {
       target.setItem(p.toString(), attributes.value);
@@ -124,8 +124,8 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     return keys;
   },
 
-  //This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys (since Object.keys will only return "enumerable" keys).
-  //"any" is necessary as the return signature because of glitch in typescript lib definitions, which is being fixed. See https://github.com/Microsoft/TypeScript/pull/15694
+  //This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys (since Object.keys will only return 'enumerable' keys).
+  //'any' is necessary as the return signature because of glitch in typescript lib definitions, which is being fixed. See https://github.com/Microsoft/TypeScript/pull/15694
   getOwnPropertyDescriptor(target, p): any {
     if (p in target) {
       return undefined;
