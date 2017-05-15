@@ -51,8 +51,8 @@ export class CookieStorage implements Storage {
   }
 
   setItem(key: string, data: string, options?: CookieOptions): void {
-    options = Object.assign({}, this._defaultOptions, options);
-    const formatted = formatCookie(key, data, options);
+    const opts = Object.assign({}, this._defaultOptions, options);
+    const formatted = formatCookie(key, data, opts);
     this._setCookie(formatted);
   }
 
