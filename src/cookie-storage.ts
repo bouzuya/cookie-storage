@@ -70,7 +70,7 @@ export class CookieStorage implements Storage {
   [index: number]: string;
 }
 
-var CookieStorageHandler: ProxyHandler<CookieStorage> = {
+const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   get(target, p) {
     // if the user makes calls to setItem(), length(), etc. pass them through
     if (p in target) {

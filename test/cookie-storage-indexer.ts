@@ -232,7 +232,7 @@ test(category + 'getOwnPropertyNames', fixture(dummyDocument, () => {
   document.cookie = 'a=1;b=2';
   const testnames = ['a', 'b'];
   const storage = new CookieStorage();
-  for (var name in storage) {
+  for (const name in storage) {
     assert(testnames.indexOf(name) > -1);
   }
 }));
