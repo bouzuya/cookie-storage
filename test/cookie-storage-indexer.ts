@@ -1,10 +1,10 @@
 import * as assert from 'power-assert';
 import beater from 'beater';
-import { CookieStorage, ProxyIsSupported } from '../src/cookie-storage';
+import { CookieStorage } from '../src/cookie-storage';
 
 // Test index-related features. These features require that the runtime support the 'Proxy' object and won't be present if the runtime does not
 const { test: originalTest, fixture } = beater();
-const test = ProxyIsSupported() ? originalTest : () => null;
+const test = typeof Proxy === 'undefined' ? () => null :  originalTest;
 
 const dummyDocument = {
   before: () => {
