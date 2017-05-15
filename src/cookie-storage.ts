@@ -78,7 +78,7 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     }
     // otherwise, save the property as a cookie
     else {
-      let result = target.getItem(p.toString())
+      const result = target.getItem(p.toString())
       return result ? result : undefined;
     }
   },
@@ -102,8 +102,8 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     return true;
   },
   defineProperty(target, p, attributes) {
-    let isExtensible = Object.isExtensible(target);
-    let alreadyExists = target.getItem(p.toString());
+    const isExtensible = Object.isExtensible(target);
+    const alreadyExists = target.getItem(p.toString());
     if (!isExtensible && !alreadyExists) {
       throw new TypeError(`Can't add property ${p.toString()}, object is not extensible`);
     }
@@ -113,7 +113,7 @@ var CookieStorageHandler: ProxyHandler<CookieStorage> = {
     }
   },
   ownKeys(target) {
-    let keys: PropertyKey[] = [];
+    const keys: PropertyKey[] = [];
     for (let i = 0; i < target.length; i++) {
       if (target.key(i) == null) {
         continue;

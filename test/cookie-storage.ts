@@ -284,15 +284,12 @@ if (ProxyIsSupported()) {
   test(category + 'preventExtensionsBlocksDefineProperty', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
     Object.preventExtensions(storage);
-    let expectedError = new Error();
-    try {
+    assert.throws(() => {
       Object.defineProperty(storage, 'a', { value: '1' });
-    }
-    catch (e) {
-      expectedError = e;
-    }
-    assert(expectedError.name === 'TypeError');
-    assert(expectedError.message === 'Can\'t add property a, object is not extensible');
+    }, (error: Error) => {
+      return error.name === 'TypeError' &&
+        error.message === 'Can\'t add property a, object is not extensible';
+    });
   }));
 
   // proxy enumeration test
