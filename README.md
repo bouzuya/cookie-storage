@@ -79,6 +79,10 @@ $ npm run watch
 
 [bouzuya/simple-memory-storage]: https://github.com/bouzuya/simple-memory-storage
 
+## Contributors
+
+- [astegmaier (Andrew Stegmaier)](https://github.com/astegmaier]
+
 ## Author
 
 [bouzuya][user] &lt;[m@bouzuya.net][email]&gt; ([http://bouzuya.net][url])
