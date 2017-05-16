@@ -81,7 +81,7 @@ $ npm run watch
 
 ## Contributors
 
-- [astegmaier (Andrew Stegmaier)](https://github.com/astegmaier]
+- [astegmaier (Andrew Stegmaier)] (https://github.com/astegmaier)
 
 ## Author
 
