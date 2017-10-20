@@ -9,13 +9,8 @@
   },
   "babel": {
     "presets": [
-      "es2015"
-    ]
-  },
-  "beater": {
-    "dir": "./.tmp/es5/test/",
-    "require": [
-      "./scripts/enable-power-assert.js"
+      "es2015",
+      "power-assert"
     ]
   },
   "bugs": {
@@ -28,8 +23,8 @@
     "@types/sinon": "2.2.1",
     "babel-cli": "6.24.1",
     "babel-preset-es2015": "6.24.1",
-    "beater": "0.4.1",
-    "beater-cli": "0.2.4",
+    "babel-preset-power-assert": "^1.0.0",
+    "beater": "^5.0.1",
     "cpx": "1.5.0",
     "espower-loader": "1.0.1",
     "npm-run-all": "4.0.2",
@@ -63,7 +58,7 @@
     "copy:dts": "cpx \".tmp/es2015/src/**/*.d.ts\" \"lib/\"",
     "copy:js": "cpx \".tmp/es5/src/**/*.js\" \"lib/\"",
     "prepublish": "npm-run-all -s \"clean\" \"build\"",
-    "test": "beater",
+    "test": "node \".tmp/es5/test\"",
     "watch": "npm-run-all -p \"watch:*\"",
     "watch:es2015": "npm run \"build:es2015\" -- --watch",
     "watch:test": "watch --wait 2 \"npm test\" \".tmp/es5/\"",
