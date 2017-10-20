@@ -70,7 +70,12 @@ test(category + 'setItem', fixture(dummyDocument, () => {
 test(category + 'removeItem', fixture(dummyDocument, () => {
   const storage = new CookieStorage();
   storage.removeItem('a');
+
   assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
+
+  storage.removeItem('b', { domain: 'example.com', path: '/' });
+
+  assert(document.cookie === 'b=;path=/;domain=example.com;expires=Thu, 01 Jan 1970 00:00:00 GMT');
 }));
 
 test(category + 'clear', fixture(dummyDocument, () => {

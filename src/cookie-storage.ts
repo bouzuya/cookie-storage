@@ -41,9 +41,9 @@ export class CookieStorage implements Storage {
     return index < sortedKeys.length ? sortedKeys[index] : null;
   }
 
-  removeItem(key: string): void {
+  removeItem(key: string, cookieOptions?: CookieOptions): void {
     const data = '';
-    const options = Object.assign({}, this._defaultOptions, {
+    const options = Object.assign({}, this._defaultOptions, cookieOptions, {
       expires: new Date(0)
     });
     const formatted = formatCookie(key, data, options);
