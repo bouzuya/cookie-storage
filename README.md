@@ -84,6 +84,7 @@ $ npm run watch
 ## Contributors
 
 - [astegmaier (Andrew Stegmaier)] (https://github.com/astegmaier)
+- [nihakue (Gabriel West)] (https://github.com/nihakue)
 
 ## Author
 
