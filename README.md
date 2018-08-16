@@ -39,7 +39,8 @@ cookieStorage.setItem('key', 'value', {
   path: '/',
   domain: 'example.com',
   expires: new Date(),
-  secure: true
+  secure: true,
+  sameSite: true // Can be 'Strict', 'Lax', or a boolean.
 });
 
 // Use default cookie options
@@ -47,7 +48,8 @@ const storage = new CookieStorage({
   path: '/',
   domain: 'example.com',
   expires: new Date(),
-  secure: true
+  secure: true,
+  sameSite: true // Can be 'Strict', 'Lax', or a boolean.
 });
 storage.setItem('key', 'value'); // ;path=/;domain=example.com;...
 ```
