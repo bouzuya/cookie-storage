@@ -14,6 +14,9 @@ const dummyDocument = {
 const category = 'CookieStorage > ';
 const tests1: Test[] = [
   test(category + 'constructor', fixture(dummyDocument, () => {
+    const storage0 = new CookieStorage();
+    storage0.setItem('a', '1');
+    assert(document.cookie === 'a=1');
     const storage1 = new CookieStorage({ path: '/' });
     storage1.setItem('b', '2');
     assert(document.cookie === 'b=2;path=/');
@@ -26,18 +29,12 @@ const tests1: Test[] = [
     const storage4 = new CookieStorage({ secure: true });
     storage4.setItem('e', '5');
     assert(document.cookie === 'e=5;secure');
-    const storage5 = new CookieStorage({ sameSite: true });
-    storage5.setItem('e', '6');
-    assert(document.cookie === 'e=6;SameSite=Strict');
-    const storage6 = new CookieStorage({ sameSite: false });
-    storage6.setItem('e', '7');
-    assert(document.cookie === 'e=7');
     const storage7 = new CookieStorage({ sameSite: 'Lax' });
-    storage7.setItem('e', '8');
-    assert(document.cookie === 'e=8;SameSite=Lax');
+    storage7.setItem('e', '6');
+    assert(document.cookie === 'e=6;SameSite=Lax');
     const storage8 = new CookieStorage({ sameSite: 'Strict' });
-    storage8.setItem('e', '9');
-    assert(document.cookie === 'e=9;SameSite=Strict');
+    storage8.setItem('e', '7');
+    assert(document.cookie === 'e=7;SameSite=Strict');
   })),
 
   test(category + 'length', fixture(dummyDocument, () => {
@@ -76,11 +73,9 @@ const tests1: Test[] = [
     assert(document.cookie === 'd=4;expires=Sun, 22 Mar 2015 06:20:35 GMT');
     storage.setItem('e', '5', { secure: true });
     assert(document.cookie === 'e=5;secure');
-    storage.setItem('e', '6', { sameSite: true });
-    assert(document.cookie === 'e=6;SameSite=Strict');
-    storage.setItem('e', '7', { sameSite: 'Strict' });
+    storage.setItem('e', '6', { sameSite: 'Strict' });
     assert(document.cookie === 'e=7;SameSite=Strict');
-    storage.setItem('e', '8', { sameSite: 'Lax' });
+    storage.setItem('e', '7', { sameSite: 'Lax' });
     assert(document.cookie === 'e=8;SameSite=Lax');
   })),
 

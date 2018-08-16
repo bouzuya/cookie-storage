@@ -3,5 +3,5 @@ export interface CookieOptions {
   domain?: string | null;
   expires?: Date | null;
   secure?: boolean;
-  sameSite?: 'Strict' | 'Lax' | boolean;
+  sameSite?: 'Strict' | 'Lax';
 }

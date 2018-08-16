@@ -11,8 +11,7 @@ export class CookieStorage implements Storage {
       path: null,
       domain: null,
       expires: null,
-      secure: false,
-      sameSite: false
+      secure: false
     }, defaultOptions);
     if (typeof Proxy !== 'undefined') {
       return new Proxy(this, CookieStorageHandler);

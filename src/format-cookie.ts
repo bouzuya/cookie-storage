@@ -19,15 +19,8 @@ const formatOptions = (o: CookieOptions): string => {
 
 const getSameSiteValue = (o: CookieOptions): string | null => {
   const { sameSite } = o;
-
-  if (typeof sameSite === 'string') {
-    return sameSite;
-  }
-
-  if (typeof sameSite === 'boolean') {
-    return sameSite ? 'Strict' : null;
-  }
-
+  if (typeof sameSite === 'undefined') return null;
+  if (['lax', 'strict'].indexOf(sameSite.toLowerCase()) >= 0) return sameSite;
   return null;
 };
 
