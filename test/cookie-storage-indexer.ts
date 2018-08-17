@@ -35,15 +35,19 @@ const tests1: Test[] = [
   test(category + 'getByIndex', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
+    // tslint:disable:no-string-literal
     assert(storage['a'] === '1');
     assert(storage['b'] === '2');
+    // tslint:enable
   })),
 
   test(category + 'getInherited', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
+    // tslint:disable:no-string-literal
     assert(Object.create(storage)['a'] === '1');
     assert(Object.create(storage)['b'] === '2');
+    // tslint:enable
   })),
 
   test(category + 'getReflect', fixture(dummyDocument, () => {
@@ -61,7 +65,9 @@ const tests1: Test[] = [
   test(category + 'setByIndex', fixture(dummyDocument, () => {
     document.cookie = '';
     const storage = new CookieStorage();
+    // tslint:disable:no-string-literal
     storage['a'] = '1';
+    // tslint:enable
     assert(document.cookie === 'a=1');
   })),
 
@@ -75,7 +81,9 @@ const tests1: Test[] = [
   test(category + 'setInherited', fixture(dummyDocument, () => {
     document.cookie = '';
     const storage = new CookieStorage();
+    // tslint:disable:no-string-literal
     Object.create(storage)['a'] = '1';
+    // tslint:enable
     assert(document.cookie === 'a=1');
   })),
 
@@ -122,15 +130,19 @@ const tests1: Test[] = [
 
   test(category + 'deleteOperator', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
+    // tslint:disable:no-string-literal
     delete storage['a'];
     assert(storage['a'] === undefined);
+    // tslint:enable
     assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   })),
 
   test(category + 'deleteReflect', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
     Reflect.deleteProperty(storage, 'a');
+    // tslint:disable:no-string-literal
     assert(storage['a'] === undefined);
+    // tslint:enable
     assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   })),
 
@@ -237,7 +249,9 @@ const tests1: Test[] = [
       document.cookie = '';
       const storage = new CookieStorage();
       Object.preventExtensions(storage);
+      // tslint:disable:no-string-literal
       storage['a'] = '1';
+      // tslint:enable
       assert(document.cookie === 'a=1');
     })),
 
