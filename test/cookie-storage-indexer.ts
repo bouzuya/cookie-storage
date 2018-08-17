@@ -1,5 +1,5 @@
-import * as assert from 'power-assert';
 import { Test, test as originalTest } from 'beater';
+import * as assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
 import { fixture } from './test-helpers/fixture';
 

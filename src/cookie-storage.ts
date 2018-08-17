@@ -1,7 +1,7 @@
-import { Storage } from './storage';
 import { CookieOptions } from './cookie-options';
 import { formatCookie } from './format-cookie';
 import { parseCookies } from './parse-cookies';
+import { Storage } from './storage';
 
 export class CookieStorage implements Storage {
   private _defaultOptions: CookieOptions;

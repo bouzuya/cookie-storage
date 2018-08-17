@@ -1,5 +1,5 @@
-import * as assert from 'power-assert';
 import { Test, test } from 'beater';
+import * as assert from 'power-assert';
 import { formatCookie } from '../src/';
 
 const tests1: Test[] = [
