@@ -23,24 +23,24 @@ export class CookieStorage implements Storage {
     return keys.length;
   }
 
-  clear(): void {
+  public clear(): void {
     const parsed = parseCookies(this._getCookie());
     const keys = Object.keys(parsed);
     keys.forEach(key => this.removeItem(key));
   }
 
-  getItem(key: string): string | null {
+  public getItem(key: string): string | null {
     const parsed = parseCookies(this._getCookie());
     return parsed.hasOwnProperty(key) ? parsed[key] : null;
   }
 
-  key(index: number): string | null {
+  public key(index: number): string | null {
     const parsed = parseCookies(this._getCookie());
     const sortedKeys = Object.keys(parsed).sort();
     return index < sortedKeys.length ? sortedKeys[index] : null;
   }
 
-  removeItem(key: string, cookieOptions?: CookieOptions): void {
+  public removeItem(key: string, cookieOptions?: CookieOptions): void {
     const data = '';
     const options = Object.assign({}, this._defaultOptions, cookieOptions, {
       expires: new Date(0)
@@ -49,7 +49,7 @@ export class CookieStorage implements Storage {
     this._setCookie(formatted);
   }
 
-  setItem(key: string, data: string, options?: CookieOptions): void {
+  public setItem(key: string, data: string, options?: CookieOptions): void {
     const opts = Object.assign({}, this._defaultOptions, options);
     const formatted = formatCookie(key, data, opts);
     this._setCookie(formatted);
