@@ -9,6 +9,10 @@
       true,
       "as-needed"
     ],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
     "max-line-length": [
       true,
       80
