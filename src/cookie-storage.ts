@@ -8,9 +8,9 @@ export class CookieStorage implements Storage {
 
   constructor(defaultOptions?: CookieOptions) {
     this._defaultOptions = Object.assign({
-      path: null,
       domain: null,
       expires: null,
+      path: null,
       secure: false
     }, defaultOptions);
     if (typeof Proxy !== 'undefined')
@@ -124,10 +124,10 @@ const CookieStorageHandler: ProxyHandler<CookieStorage> = {
       return undefined;
     else
       return {
-        value: target.getItem(p.toString()),
-        writable: true,
+        configurable: true,
         enumerable: true,
-        configurable: true
+        value: target.getItem(p.toString()),
+        writable: true
       };
   }
 };

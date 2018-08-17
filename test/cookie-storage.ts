@@ -4,11 +4,11 @@ import { CookieStorage } from '../src/cookie-storage';
 import { fixture } from './test-helpers/fixture';
 
 const dummyDocument = {
-  before: () => {
-    (<any>global).document = {};
-  },
   after: () => {
     delete (<any>global).document;
+  },
+  before: () => {
+    (<any>global).document = {};
   }
 };
 const category = 'CookieStorage > ';

@@ -9,11 +9,11 @@ const test = typeof Proxy === 'undefined'
   : originalTest;
 
 const dummyDocument = {
-  before: () => {
-    (<any>global).document = {};
-  },
   after: () => {
     delete (<any>global).document;
+  },
+  before: () => {
+    (<any>global).document = {};
   }
 };
 
