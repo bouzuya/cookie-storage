@@ -29,6 +29,7 @@
     "power-assert": "^1.6.0",
     "proxyquire": "^2.0.1",
     "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
     "typescript": "^3.0.1",
     "watch": "1.0.2"
   },
@@ -48,8 +49,9 @@
     "url": "https://github.com/bouzuya/cookie-storage.git"
   },
   "scripts": {
-    "build": "npm-run-all -s \"build:ts\" \"build:es2015\" -p \"copy:*\"",
+    "build": "npm-run-all -s \"build:lint\" \"build:ts\" \"build:es2015\" -p \"copy:*\"",
     "build:es2015": "babel --out-dir \".tmp/es5/\" --quiet \".tmp/es2015/\"",
+    "build:lint": "tslint --project .",
     "build:ts": "tsc",
     "clean": "rimraf \".tmp\" \"lib\"",
     "copy:dts": "cpx \".tmp/es2015/src/**/*.d.ts\" \"lib/\"",
