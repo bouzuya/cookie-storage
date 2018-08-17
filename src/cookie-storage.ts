@@ -78,7 +78,7 @@ const CookieStorageHandler: ProxyHandler<CookieStorage> = {
     }
     // otherwise, save the property as a cookie
     else {
-      const result = target.getItem(p.toString())
+      const result = target.getItem(p.toString());
       return result ? result : undefined;
     }
   },

@@ -7,7 +7,7 @@ const fixture = (options: {
       .then(() => options.before())
       .then(() => test)
       .then((v) => {
-        options.after()
+        options.after();
         return Promise.resolve(v);
       }, (e) => {
         options.after();
