@@ -3,7 +3,8 @@ import * as assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
 import { fixture } from './test-helpers/fixture';
 
-// Test index-related features. These features require that the runtime support the 'Proxy' object and won't be present if the runtime does not
+// Test index-related features. These features require that the runtime support
+// the 'Proxy' object and won't be present if the runtime does not
 const test = typeof Proxy === 'undefined'
   ? (_n: string, _f: Function): Test => originalTest('', () => { })
   : originalTest;
@@ -20,7 +21,9 @@ const dummyDocument = {
 const category = 'CookieStorage (indexer) > ';
 const tests1: Test[] = [
   // proxy 'get' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/get
+  // tslint:enable
 
   test(category + 'getByIndexNumber', fixture(dummyDocument, () => {
     document.cookie = '1=a;2=b';
@@ -51,7 +54,9 @@ const tests1: Test[] = [
   })),
 
   // proxy 'set' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set
+  // tslint:enable
 
   test(category + 'setByIndex', fixture(dummyDocument, () => {
     document.cookie = '';
@@ -82,7 +87,9 @@ const tests1: Test[] = [
   })),
 
   // proxy 'has' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/has
+  // tslint:enable
 
   test(category + 'inOperator', fixture(dummyDocument, () => {
     document.cookie = 'a=1';
@@ -90,10 +97,11 @@ const tests1: Test[] = [
     assert('a' in storage === true);
   })),
 
-  test(category + 'inOperatorWithBuiltinFunction', fixture(dummyDocument, () => {
-    const storage = new CookieStorage();
-    assert('getItem' in storage === true);
-  })),
+  test(category + 'inOperatorWithBuiltinFunction',
+    fixture(dummyDocument, () => {
+      const storage = new CookieStorage();
+      assert('getItem' in storage === true);
+    })),
 
   test(category + 'inOperatorInherited', fixture(dummyDocument, () => {
     document.cookie = 'a=1';
@@ -108,7 +116,9 @@ const tests1: Test[] = [
   })),
 
   // proxy 'delete' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/deleteProperty
+  // tslint:enable
 
   test(category + 'deleteOperator', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
@@ -125,7 +135,9 @@ const tests1: Test[] = [
   })),
 
   // proxy 'defineProperty' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/defineProperty
+  // tslint:enable
 
   test(category + 'defineProperty', fixture(dummyDocument, () => {
     document.cookie = '';
@@ -142,7 +154,9 @@ const tests1: Test[] = [
   })),
 
   // proxy 'ownKeys' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/ownKeys
+  // tslint:enable
 
   test(category + 'getOwnPropertyNames', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
@@ -172,38 +186,45 @@ const tests1: Test[] = [
   })),
 
   // proxy 'getOwnPropertyDescriptor' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor
+  // tslint:enable
 
-  test(category + 'getOwnPropertyDescriptorOnProperty', fixture(dummyDocument, () => {
-    document.cookie = 'a=1';
-    const storage = new CookieStorage();
-    const descriptor = Object.getOwnPropertyDescriptor(storage, 'a');
-    if (typeof descriptor === 'undefined') throw new Error();
-    assert(descriptor.value === '1');
-    assert(descriptor.writable === true);
-    assert(descriptor.enumerable === true);
-    assert(descriptor.configurable === true);
-  })),
+  test(category + 'getOwnPropertyDescriptorOnProperty',
+    fixture(dummyDocument, () => {
+      document.cookie = 'a=1';
+      const storage = new CookieStorage();
+      const descriptor = Object.getOwnPropertyDescriptor(storage, 'a');
+      if (typeof descriptor === 'undefined') throw new Error();
+      assert(descriptor.value === '1');
+      assert(descriptor.writable === true);
+      assert(descriptor.enumerable === true);
+      assert(descriptor.configurable === true);
+    })),
 
-  test(category + 'getOwnPropertyDescriptorOnFunction', fixture(dummyDocument, () => {
-    const storage = new CookieStorage();
-    const descriptor = Object.getOwnPropertyDescriptor(storage, 'getItem');
-    assert(descriptor === undefined);
-  })),
+  test(category + 'getOwnPropertyDescriptorOnFunction',
+    fixture(dummyDocument, () => {
+      const storage = new CookieStorage();
+      const descriptor = Object.getOwnPropertyDescriptor(storage, 'getItem');
+      assert(descriptor === undefined);
+    })),
 
-  test(category + 'getOwnPropertyDescriptorReflect', fixture(dummyDocument, () => {
-    document.cookie = 'a=1';
-    const storage = new CookieStorage();
-    const descriptor = Reflect.getOwnPropertyDescriptor(storage, 'a');
-    if (typeof descriptor === 'undefined') throw new Error();
-    assert(descriptor.value === '1');
-    assert(descriptor.writable === true);
-    assert(descriptor.enumerable === true);
-    assert(descriptor.configurable === true);
-  })),
+  test(category + 'getOwnPropertyDescriptorReflect',
+    fixture(dummyDocument, () => {
+      document.cookie = 'a=1';
+      const storage = new CookieStorage();
+      const descriptor = Reflect.getOwnPropertyDescriptor(storage, 'a');
+      if (typeof descriptor === 'undefined') throw new Error();
+      assert(descriptor.value === '1');
+      assert(descriptor.writable === true);
+      assert(descriptor.enumerable === true);
+      assert(descriptor.configurable === true);
+    })),
 
   // proxy 'preventExtensions' tests
+  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/preventExtensions
+  // tslint:enable
 
   test(category + 'preventExtensions', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
@@ -211,24 +232,26 @@ const tests1: Test[] = [
     assert(Object.isExtensible(storage) === false);
   })),
 
-  test(category + 'preventExtensionsDoesntBlockIndexSetting', fixture(dummyDocument, () => {
-    document.cookie = '';
-    const storage = new CookieStorage();
-    Object.preventExtensions(storage);
-    storage['a'] = '1';
-    assert(document.cookie === 'a=1');
-  })),
+  test(category + 'preventExtensionsDoesntBlockIndexSetting',
+    fixture(dummyDocument, () => {
+      document.cookie = '';
+      const storage = new CookieStorage();
+      Object.preventExtensions(storage);
+      storage['a'] = '1';
+      assert(document.cookie === 'a=1');
+    })),
 
-  test(category + 'preventExtensionsBlocksDefineProperty', fixture(dummyDocument, () => {
-    const storage = new CookieStorage();
-    Object.preventExtensions(storage);
-    assert.throws(() => {
-      Object.defineProperty(storage, 'a', { value: '1' });
-    }, (error: Error) => {
-      return error.name === 'TypeError' &&
-        error.message === 'Can\'t add property a, object is not extensible';
-    });
-  })),
+  test(category + 'preventExtensionsBlocksDefineProperty',
+    fixture(dummyDocument, () => {
+      const storage = new CookieStorage();
+      Object.preventExtensions(storage);
+      assert.throws(() => {
+        Object.defineProperty(storage, 'a', { value: '1' });
+      }, (error: Error) => {
+        return error.name === 'TypeError' &&
+          error.message === 'Can\'t add property a, object is not extensible';
+      });
+    })),
 
   // proxy enumeration test
 

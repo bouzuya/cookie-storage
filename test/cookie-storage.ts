@@ -87,7 +87,8 @@ const tests1: Test[] = [
 
     storage.removeItem('b', { domain: 'example.com', path: '/' });
 
-    assert(document.cookie === 'b=;path=/;domain=example.com;expires=Thu, 01 Jan 1970 00:00:00 GMT');
+    assert(document.cookie ===
+      'b=;path=/;domain=example.com;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   })),
 
   test(category + 'clear', fixture(dummyDocument, () => {

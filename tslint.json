@@ -9,6 +9,10 @@
       true,
       "as-needed"
     ],
+    "max-line-length": [
+      true,
+      80
+    ],
     "ordered-imports": [
       true,
       {
