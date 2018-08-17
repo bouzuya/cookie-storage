@@ -14,7 +14,7 @@ export class CookieStorage implements Storage {
       secure: false
     }, defaultOptions);
     if (typeof Proxy !== 'undefined')
-      return new Proxy(this, CookieStorageHandler);
+      return new Proxy(this, cookieStorageHandler);
   }
 
   get length(): number {
@@ -69,7 +69,7 @@ export class CookieStorage implements Storage {
   [index: number]: string;
 }
 
-const CookieStorageHandler: ProxyHandler<CookieStorage> = {
+const cookieStorageHandler: ProxyHandler<CookieStorage> = {
   get(target, p) {
     // if the user makes calls to setItem(), length(), etc. pass them through
     if (typeof p === 'string' && p in target)
