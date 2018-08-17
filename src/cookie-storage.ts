@@ -26,7 +26,7 @@ export class CookieStorage implements Storage {
   public clear(): void {
     const parsed = parseCookies(this._getCookie());
     const keys = Object.keys(parsed);
-    keys.forEach(key => this.removeItem(key));
+    keys.forEach((key) => this.removeItem(key));
   }
 
   public getItem(key: string): string | null {
