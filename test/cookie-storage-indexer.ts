@@ -6,7 +6,7 @@ import { fixture } from './test-helpers/fixture';
 // Test index-related features. These features require that the runtime support
 // the 'Proxy' object and won't be present if the runtime does not
 const test = typeof Proxy === 'undefined'
-  ? (_n: string, _f: Function): Test => originalTest('', () => void 0)
+  ? (_n: string, _f: () => void): Test => originalTest('', () => void 0)
   : originalTest;
 
 const dummyDocument = {

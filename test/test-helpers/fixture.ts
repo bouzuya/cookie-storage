@@ -1,7 +1,10 @@
-const fixture = (options: {
-  before: () => void;
-  after: () => void;
-}, test: Function): Function => {
+const fixture = (
+  options: {
+    before: () => void;
+    after: () => void;
+  },
+  test: () => any
+): () => Promise<any> => {
   return () => {
     return Promise.resolve()
       .then(() => options.before())
