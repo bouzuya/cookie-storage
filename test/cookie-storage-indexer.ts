@@ -178,6 +178,7 @@ const tests1: Test[] = [
     document.cookie = 'a=1';
     const storage = new CookieStorage();
     const descriptor = Object.getOwnPropertyDescriptor(storage, 'a');
+    if (typeof descriptor === 'undefined') throw new Error();
     assert(descriptor.value === '1');
     assert(descriptor.writable === true);
     assert(descriptor.enumerable === true);
@@ -194,6 +195,7 @@ const tests1: Test[] = [
     document.cookie = 'a=1';
     const storage = new CookieStorage();
     const descriptor = Reflect.getOwnPropertyDescriptor(storage, 'a');
+    if (typeof descriptor === 'undefined') throw new Error();
     assert(descriptor.value === '1');
     assert(descriptor.writable === true);
     assert(descriptor.enumerable === true);

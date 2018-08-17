@@ -73,7 +73,7 @@ export class CookieStorage implements Storage {
 const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   get(target, p) {
     // if the user makes calls to setItem(), length(), etc. pass them through
-    if (p in target) {
+    if (typeof p === 'string' && p in target) {
       return target[p];
     }
     // otherwise, save the property as a cookie
