@@ -13,9 +13,8 @@ export class CookieStorage implements Storage {
       expires: null,
       secure: false
     }, defaultOptions);
-    if (typeof Proxy !== 'undefined') {
+    if (typeof Proxy !== 'undefined')
       return new Proxy(this, CookieStorageHandler);
-    }
   }
 
   get length(): number {
@@ -73,9 +72,8 @@ export class CookieStorage implements Storage {
 const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   get(target, p) {
     // if the user makes calls to setItem(), length(), etc. pass them through
-    if (typeof p === 'string' && p in target) {
+    if (typeof p === 'string' && p in target)
       return target[p];
-    }
     // otherwise, save the property as a cookie
     else {
       const result = target.getItem(p.toString());
@@ -89,13 +87,11 @@ const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   },
   has(target, p) {
     // if the user is checking for the existance of a builtin method like 'getItem' or 'lenth' this should return true, just like it does for localStorage.
-    if (p in target) {
+    if (p in target)
       return true;
-    }
     // otherwise, check whether the cookie exists
-    else {
+    else
       return target.getItem(p.toString()) ? true : false;
-    }
   },
   deleteProperty(target, p) {
     target.removeItem(p.toString());
@@ -104,9 +100,8 @@ const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   defineProperty(target, p, attributes) {
     const isExtensible = Object.isExtensible(target);
     const alreadyExists = target.getItem(p.toString());
-    if (!isExtensible && !alreadyExists) {
+    if (!isExtensible && !alreadyExists)
       throw new TypeError(`Can't add property ${p.toString()}, object is not extensible`);
-    }
     else {
       target.setItem(p.toString(), attributes.value);
       return true;
@@ -114,29 +109,25 @@ const CookieStorageHandler: ProxyHandler<CookieStorage> = {
   },
   ownKeys(target) {
     const keys: PropertyKey[] = [];
-    for (let i = 0; i < target.length; i++) {
-      if (target.key(i) == null) {
+    for (let i = 0; i < target.length; i++)
+      if (target.key(i) == null)
         continue;
-      } else {
+      else
         keys.push(target.key(i) as PropertyKey);
-      }
-    }
     return keys;
   },
 
   // This emulates the behavior of localStorage, and ensures that Object.keys(CookieStorage) will always return the full array of keys (since Object.keys will only return 'enumerable' keys).
   // 'any' is necessary as the return signature because of glitch in typescript lib definitions, which is being fixed. See https:// github.com/Microsoft/TypeScript/pull/15694
   getOwnPropertyDescriptor(target, p): any {
-    if (p in target) {
+    if (p in target)
       return undefined;
-    }
-    else {
+    else
       return {
         value: target.getItem(p.toString()),
         writable: true,
         enumerable: true,
         configurable: true
       };
-    }
   }
 };

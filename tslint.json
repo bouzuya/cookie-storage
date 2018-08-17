@@ -5,6 +5,10 @@
   ],
   "jsRules": {},
   "rules": {
+    "curly": [
+      true,
+      "as-needed"
+    ],
     "ordered-imports": [
       true,
       {
