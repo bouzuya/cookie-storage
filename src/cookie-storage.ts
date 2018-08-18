@@ -123,9 +123,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     throw new TypeError('can\'t prevent extensions on this proxy object');
   },
   set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
-    // localStorage and sessionStorage don't do any isExtensible checks before
-    // allowing you to create new properties via indexes (e.g.
-    // Object.preventExtensions(localStorage); localStorage['a'] = 1; will work)
+    // CookieStorage is always extensible (can't prevent extensions).
     target.setItem(p.toString(), String(value));
     return true;
   }
