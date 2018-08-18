@@ -108,16 +108,15 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
       return true;
     }
   },
-  ownKeys(target) {
+  ownKeys(target: CookieStorage): PropertyKey[] {
     const keys: PropertyKey[] = [];
-    for (let i = 0; i < target.length; i++)
-      if (target.key(i) === null)
-        continue;
-      else
-        keys.push(target.key(i) as PropertyKey);
+    for (let i = 0; i < target.length; i++) {
+      const key = target.key(i);
+      if (key !== null)
+        keys.push(key);
+    }
     return keys;
   },
-
   // This emulates the behavior of localStorage, and ensures that
   // Object.keys(CookieStorage) will always return the full array of keys (since
   // Object.keys will only return 'enumerable' keys).
