@@ -84,10 +84,8 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     return true;
   },
   has(target: CookieStorage, p: PropertyKey): boolean {
-    if (typeof p === 'string' && p in target)
-      return true;
-    else
-      return target.getItem(p.toString()) !== null;
+    if (typeof p === 'string' && p in target) return true;
+    return target.getItem(p.toString()) !== null;
   },
   deleteProperty(target, p) {
     target.removeItem(p.toString());
