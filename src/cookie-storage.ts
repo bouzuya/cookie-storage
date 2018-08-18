@@ -96,14 +96,11 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     p: PropertyKey,
     attributes: PropertyDescriptor
   ): boolean {
-    const isExtensible = Object.isExtensible(target); // TODO: always true
-    if (!isExtensible) {
-      const s = `Can't add property ${p.toString()}, object is not extensible`;
-      throw new TypeError(s);
-    } else {
-      target.setItem(p.toString(), String(attributes.value));
-      return true;
-    }
+    target.setItem(p.toString(), String(attributes.value));
+    return true;
+  },
+  preventExtensions(_: CookieStorage): boolean {
+    throw new TypeError('can\'t prevent extensions on this proxy object');
   },
   ownKeys(target: CookieStorage): PropertyKey[] {
     const keys: PropertyKey[] = [];
