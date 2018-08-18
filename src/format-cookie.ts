@@ -10,7 +10,7 @@ const formatOptions = (o: CookieOptions): string => {
       ? '' : ';domain=' + domain,
     typeof expires === 'undefined' || expires === null
       ? '' : ';expires=' + expires.toUTCString(),
-    typeof secure === 'undefined' || secure === null || secure === false
+    typeof secure === 'undefined' || secure === false
       ? '' : ';secure',
     sameSiteValue === null
       ? '' : ';SameSite=' + sameSiteValue

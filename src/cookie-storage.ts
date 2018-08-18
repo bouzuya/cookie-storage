@@ -77,7 +77,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     // otherwise, save the property as a cookie
     else {
       const result = target.getItem(p.toString());
-      return result ? result : undefined;
+      return result !== null ? result : undefined;
     }
   },
   set(target, p, value) {
@@ -115,7 +115,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
   ownKeys(target) {
     const keys: PropertyKey[] = [];
     for (let i = 0; i < target.length; i++)
-      if (target.key(i) == null)
+      if (target.key(i) === null)
         continue;
       else
         keys.push(target.key(i) as PropertyKey);
