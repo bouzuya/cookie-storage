@@ -70,27 +70,6 @@ export class CookieStorage implements Storage {
 }
 
 const cookieStorageHandler: ProxyHandler<CookieStorage> = {
-  get(target: CookieStorage, p: PropertyKey, _receiver: any): any {
-    // if the user makes calls to setItem(), length(), etc. pass them through
-    if (typeof p === 'string' && p in target) return target[p];
-    const result = target.getItem(p.toString());
-    return result !== null ? result : undefined;
-  },
-  set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
-    // localStorage and sessionStorage don't do any isExtensible checks before
-    // allowing you to create new properties via indexes (e.g.
-    // Object.preventExtensions(localStorage); localStorage['a'] = 1; will work)
-    target.setItem(p.toString(), String(value));
-    return true;
-  },
-  has(target: CookieStorage, p: PropertyKey): boolean {
-    if (typeof p === 'string' && p in target) return true;
-    return target.getItem(p.toString()) !== null;
-  },
-  deleteProperty(target: CookieStorage, p: PropertyKey): boolean {
-    target.removeItem(p.toString());
-    return true;
-  },
   defineProperty(
     target: CookieStorage,
     p: PropertyKey,
@@ -99,17 +78,15 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     target.setItem(p.toString(), String(attributes.value));
     return true;
   },
-  preventExtensions(_: CookieStorage): boolean {
-    throw new TypeError('can\'t prevent extensions on this proxy object');
+  deleteProperty(target: CookieStorage, p: PropertyKey): boolean {
+    target.removeItem(p.toString());
+    return true;
   },
-  ownKeys(target: CookieStorage): PropertyKey[] {
-    const keys: PropertyKey[] = [];
-    for (let i = 0; i < target.length; i++) {
-      const key = target.key(i);
-      if (key !== null)
-        keys.push(key);
-    }
-    return keys;
+  get(target: CookieStorage, p: PropertyKey, _receiver: any): any {
+    // if the user makes calls to setItem(), length(), etc. pass them through
+    if (typeof p === 'string' && p in target) return target[p];
+    const result = target.getItem(p.toString());
+    return result !== null ? result : undefined;
   },
   // This emulates the behavior of localStorage, and ensures that
   // Object.keys(CookieStorage) will always return the full array of keys (since
@@ -128,5 +105,28 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
       value: target.getItem(p.toString()),
       writable: true
     };
+  },
+  has(target: CookieStorage, p: PropertyKey): boolean {
+    if (typeof p === 'string' && p in target) return true;
+    return target.getItem(p.toString()) !== null;
+  },
+  ownKeys(target: CookieStorage): PropertyKey[] {
+    const keys: PropertyKey[] = [];
+    for (let i = 0; i < target.length; i++) {
+      const key = target.key(i);
+      if (key !== null)
+        keys.push(key);
+    }
+    return keys;
+  },
+  preventExtensions(_: CookieStorage): boolean {
+    throw new TypeError('can\'t prevent extensions on this proxy object');
+  },
+  set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
+    // localStorage and sessionStorage don't do any isExtensible checks before
+    // allowing you to create new properties via indexes (e.g.
+    // Object.preventExtensions(localStorage); localStorage['a'] = 1; will work)
+    target.setItem(p.toString(), String(value));
+    return true;
   }
 };
