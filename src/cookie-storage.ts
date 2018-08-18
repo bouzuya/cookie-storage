@@ -70,15 +70,11 @@ export class CookieStorage implements Storage {
 }
 
 const cookieStorageHandler: ProxyHandler<CookieStorage> = {
-  get(target, p) {
+  get(target: CookieStorage, p: PropertyKey, _receiver: any): any {
     // if the user makes calls to setItem(), length(), etc. pass them through
-    if (typeof p === 'string' && p in target)
-      return target[p];
-    // otherwise, save the property as a cookie
-    else {
-      const result = target.getItem(p.toString());
-      return result !== null ? result : undefined;
-    }
+    if (typeof p === 'string' && p in target) return target[p];
+    const result = target.getItem(p.toString());
+    return result !== null ? result : undefined;
   },
   set(target, p, value) {
     // localStorage and sessionStorage don't do any isExtensible checks before
