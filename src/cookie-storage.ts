@@ -76,11 +76,11 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     const result = target.getItem(p.toString());
     return result !== null ? result : undefined;
   },
-  set(target, p, value) {
+  set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
     // localStorage and sessionStorage don't do any isExtensible checks before
     // allowing you to create new properties via indexes (e.g.
     // Object.preventExtensions(localStorage); localStorage['a'] = 1; will work)
-    target.setItem(p.toString(), value);
+    target.setItem(p.toString(), String(value));
     return true;
   },
   has(target: CookieStorage, p: PropertyKey): boolean {
