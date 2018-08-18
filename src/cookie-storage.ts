@@ -117,15 +117,16 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
   // 'any' is necessary as the return signature because of glitch in typescript
   // lib definitions, which is being fixed.
   // See https://github.com/Microsoft/TypeScript/pull/15694
-  getOwnPropertyDescriptor(target, p): any {
-    if (p in target)
-      return undefined;
-    else
-      return {
-        configurable: true,
-        enumerable: true,
-        value: target.getItem(p.toString()),
-        writable: true
-      };
+  getOwnPropertyDescriptor(
+    target: CookieStorage,
+    p: PropertyKey
+  ): PropertyDescriptor | undefined {
+    if (p in target) return undefined;
+    return {
+      configurable: true,
+      enumerable: true,
+      value: target.getItem(p.toString()),
+      writable: true
+    };
   }
 };
