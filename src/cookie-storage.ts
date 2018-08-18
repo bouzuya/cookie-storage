@@ -87,15 +87,11 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     target.setItem(p.toString(), value);
     return true;
   },
-  has(target, p) {
-    // if the user is checking for the existance of a builtin method like
-    // 'getItem' or 'lenth' this should return true, just like it does for
-    // localStorage.
-    if (p in target)
+  has(target: CookieStorage, p: PropertyKey): boolean {
+    if (typeof p === 'string' && p in target)
       return true;
-    // otherwise, check whether the cookie exists
     else
-      return target.getItem(p.toString()) ? true : false;
+      return target.getItem(p.toString()) !== null;
   },
   deleteProperty(target, p) {
     target.removeItem(p.toString());
