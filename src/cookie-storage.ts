@@ -91,14 +91,17 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     target.removeItem(p.toString());
     return true;
   },
-  defineProperty(target, p, attributes) {
-    const isExtensible = Object.isExtensible(target);
-    const alreadyExists = target.getItem(p.toString());
-    if (!isExtensible && !alreadyExists) {
+  defineProperty(
+    target: CookieStorage,
+    p: PropertyKey,
+    attributes: PropertyDescriptor
+  ): boolean {
+    const isExtensible = Object.isExtensible(target); // TODO: always true
+    if (!isExtensible) {
       const s = `Can't add property ${p.toString()}, object is not extensible`;
       throw new TypeError(s);
     } else {
-      target.setItem(p.toString(), attributes.value);
+      target.setItem(p.toString(), String(attributes.value));
       return true;
     }
   },
