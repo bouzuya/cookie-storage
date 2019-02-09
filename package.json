@@ -10,7 +10,7 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
             "node": "6"
@@ -24,12 +24,13 @@
     "url": "https://github.com/bouzuya/cookie-storage/issues"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "@types/node": "^10.12.24",
     "@types/power-assert": "^1.5.0",
     "@types/proxyquire": "^1.3.28",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-power-assert": "^2.0.0",
+    "babel-preset-power-assert": "^3.0.0",
     "beater": "^5.0.1",
     "cpx": "^1.5.0",
     "npm-run-all": "^4.1.5",
@@ -57,7 +58,7 @@
   },
   "scripts": {
     "build": "npm-run-all -s \"build:lint\" \"build:ts\" \"build:es2015\" -p \"copy:*\"",
-    "build:es2015": "babel --out-dir \".tmp/es5/\" --quiet \".tmp/es2015/\"",
+    "build:es2015": "babel --out-dir \".tmp/es5/\" \".tmp/es2015/\"",
     "build:lint": "tslint --project .",
     "build:ts": "tsc",
     "clean": "rimraf \".tmp\" \"lib\"",
