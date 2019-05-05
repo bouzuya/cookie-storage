@@ -1,7 +1,7 @@
 {
   "name": "cookie-storage",
   "description": "A Web Storage interface for Cookie",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "author": {
     "name": "bouzuya",
     "email": "m@bouzuya.net",
