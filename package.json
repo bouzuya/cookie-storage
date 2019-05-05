@@ -62,7 +62,7 @@
     "build:lint": "tslint --project .",
     "build:ts": "tsc",
     "clean": "rimraf \".tmp\" \"lib\"",
-    "prepublish": "npm-run-all -s \"clean\" \"build\"",
+    "prepare": "npm-run-all -s \"clean\" \"build\"",
     "test": "node \".tmp/es5/test\"",
     "watch": "npm-run-all -p \"watch:*\"",
     "watch:es2015": "npm run \"build:es2015\" -- --watch",
