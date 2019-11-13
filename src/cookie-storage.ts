@@ -7,12 +7,13 @@ export class CookieStorage implements Storage {
   private _defaultOptions: CookieOptions;
 
   constructor(defaultOptions?: CookieOptions) {
-    this._defaultOptions = Object.assign({
+    this._defaultOptions = {
       domain: null,
       expires: null,
       path: null,
-      secure: false
-    }, defaultOptions);
+      secure: false,
+      ...defaultOptions
+    };
     if (typeof Proxy !== 'undefined')
       return new Proxy(this, cookieStorageHandler);
   }
