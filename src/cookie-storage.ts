@@ -43,15 +43,17 @@ export class CookieStorage implements Storage {
 
   public removeItem(key: string, cookieOptions?: CookieOptions): void {
     const data = '';
-    const options = Object.assign({}, this._defaultOptions, cookieOptions, {
-      expires: new Date(0)
-    });
+    const options = {
+      ...this._defaultOptions,
+      ...cookieOptions,
+      ...{ expires: new Date(0) }
+    };
     const formatted = formatCookie(key, data, options);
     this._setCookie(formatted);
   }
 
   public setItem(key: string, data: string, options?: CookieOptions): void {
-    const opts = Object.assign({}, this._defaultOptions, options);
+    const opts = { ...this._defaultOptions, ...options };
     const formatted = formatCookie(key, data, opts);
     this._setCookie(formatted);
   }
