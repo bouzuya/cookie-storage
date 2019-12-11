@@ -1,6 +1,6 @@
 import assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
-import { Test, fixture, test } from './test-helpers';
+import { Test, fixture, group, test } from './test-helpers';
 
 const dummyDocument = {
   after: () => {
@@ -10,9 +10,8 @@ const dummyDocument = {
     (global as any).document = {};
   }
 };
-const category = 'CookieStorage > ';
-const tests1: Test[] = [
-  test(category + 'constructor', fixture(dummyDocument, () => {
+const tests1: Test[] = group('CookieStorage > ', [
+  test('constructor', fixture(dummyDocument, () => {
     const storage0 = new CookieStorage();
     storage0.setItem('a', '1');
     assert(document.cookie === 'a=1');
@@ -36,7 +35,7 @@ const tests1: Test[] = [
     assert(document.cookie === 'e=7;SameSite=Strict');
   })),
 
-  test(category + 'length', fixture(dummyDocument, () => {
+  test('length', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
     assert(storage.length === 0);
     document.cookie = 'a=1';
@@ -45,21 +44,21 @@ const tests1: Test[] = [
     assert(storage.length === 2);
   })),
 
-  test(category + 'key', fixture(dummyDocument, () => {
+  test('key', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     assert(storage.key(0) === 'a');
     assert(storage.key(1) === 'b');
   })),
 
-  test(category + 'getItem', fixture(dummyDocument, () => {
+  test('getItem', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     assert(storage.getItem('a') === '1');
     assert(storage.getItem('b') === '2');
   })),
 
-  test(category + 'setItem', fixture(dummyDocument, () => {
+  test('setItem', fixture(dummyDocument, () => {
     document.cookie = 'a=1;b=2';
     const storage = new CookieStorage();
     storage.setItem('a', '1');
@@ -78,7 +77,7 @@ const tests1: Test[] = [
     assert(document.cookie === 'e=8;SameSite=Lax');
   })),
 
-  test(category + 'removeItem', fixture(dummyDocument, () => {
+  test('removeItem', fixture(dummyDocument, () => {
     const storage = new CookieStorage();
     storage.removeItem('a');
 
@@ -90,12 +89,12 @@ const tests1: Test[] = [
       'b=;path=/;domain=example.com;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   })),
 
-  test(category + 'clear', fixture(dummyDocument, () => {
+  test('clear', fixture(dummyDocument, () => {
     document.cookie = 'a=1';
     const storage = new CookieStorage();
     storage.clear();
     assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
   }))
-];
+]);
 
 export { tests1 as tests };

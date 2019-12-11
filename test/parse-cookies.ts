@@ -1,8 +1,8 @@
 import assert from 'power-assert';
 import { parseCookies } from '../src/';
-import { Test, test } from './test-helpers';
+import { Test, group, test } from './test-helpers';
 
-const tests1: Test[] = [
+const tests1: Test[] = group('parse-cookies > ', [
   test('parse', () => {
     assert.deepEqual(parseCookies(''), {});
     assert.deepEqual(parseCookies('='), { '': '' });
@@ -11,6 +11,6 @@ const tests1: Test[] = [
     assert.deepEqual(parseCookies('a=1;b=2;c=3'), { a: '1', b: '2', c: '3' });
     assert.deepEqual(parseCookies('%3D=%3D'), { '=': '=' });
   })
-];
+]);
 
 export { tests1 as tests };

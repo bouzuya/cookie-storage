@@ -1,8 +1,8 @@
 import assert from 'power-assert';
 import { formatCookie } from '../src/';
-import { Test, test } from './test-helpers';
+import { Test, group, test } from './test-helpers';
 
-const tests1: Test[] = [
+const tests1: Test[] = group('format-cookie > ', [
   test('format', () => {
     assert(formatCookie('', '', {}) === '=');
     assert(formatCookie('a', '1', {}) === 'a=1');
@@ -19,6 +19,6 @@ const tests1: Test[] = [
       === 'e=7;SameSite=Lax');
     assert(formatCookie('=', '=', {}) === '%3D=%3D');
   })
-];
+]);
 
 export { tests1 as tests };
