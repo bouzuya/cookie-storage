@@ -1,6 +1,6 @@
-import { Test, test } from 'beater';
 import assert from 'power-assert';
 import { parseCookies } from '../src/';
+import { Test, test } from './test-helpers';
 
 const tests1: Test[] = [
   test('parse', () => {

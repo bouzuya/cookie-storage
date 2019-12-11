@@ -1,6 +1,6 @@
-import { Test, test } from 'beater';
 import assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
+import { Test, test } from './test-helpers';
 import { fixture } from './test-helpers/fixture';
 
 const dummyDocument = {

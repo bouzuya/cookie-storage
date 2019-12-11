@@ -1,6 +1,6 @@
-import { Test, test as originalTest } from 'beater';
 import assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
+import { Test, test as originalTest } from './test-helpers';
 import { fixture } from './test-helpers/fixture';
 
 // Test index-related features. These features require that the runtime support
