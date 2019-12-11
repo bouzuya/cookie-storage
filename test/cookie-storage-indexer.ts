@@ -1,7 +1,6 @@
 import assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
-import { Test, test as originalTest } from './test-helpers';
-import { fixture } from './test-helpers/fixture';
+import { Test, fixture, test as originalTest } from './test-helpers';
 
 // Test index-related features. These features require that the runtime support
 // the 'Proxy' object and won't be present if the runtime does not

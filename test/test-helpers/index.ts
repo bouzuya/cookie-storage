@@ -1,4 +1,5 @@
 import { Test, run } from 'beater';
+import { fixture } from './fixture';
 import { test } from './test';
 
-export { Test, run, test };
+export { Test, fixture, run, test };

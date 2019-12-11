@@ -1,7 +1,6 @@
 import assert from 'power-assert';
 import { CookieStorage } from '../src/cookie-storage';
-import { Test, test } from './test-helpers';
-import { fixture } from './test-helpers/fixture';
+import { Test, fixture, test } from './test-helpers';
 
 const dummyDocument = {
   after: () => {
