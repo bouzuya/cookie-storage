@@ -6,4 +6,4 @@ update_configs:
     ignored_updates:
       - match:
           dependency_name: "@types/node"
-          version_requirement: ">8"
+          version_requirement: ">10"
