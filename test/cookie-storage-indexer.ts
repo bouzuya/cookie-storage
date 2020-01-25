@@ -6,7 +6,7 @@ import { Test, fixture, group, test as originalTest } from './test-helpers';
 // the 'Proxy' object and won't be present if the runtime does not
 const test =
   typeof Proxy === 'undefined'
-    ? (_n: string, _f: () => void): Test => originalTest('', () => void 0)
+    ? (_n: string, _f: Test): Test => originalTest('', () => void 0)
     : originalTest;
 
 const dummyDocument = {
