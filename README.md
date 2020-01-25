@@ -18,6 +18,7 @@ import { CookieStorage } from 'cookie-storage';
 const cookieStorage = new CookieStorage();
 
 cookieStorage.length === 0;
+cookieStorage.getItem('key') === null;
 
 cookieStorage.setItem('key', 'value');
 cookieStorage.length === 1;
