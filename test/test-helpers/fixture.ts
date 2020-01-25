@@ -3,9 +3,10 @@ const fixture = (
     before: () => void;
     after: () => void;
   },
-  test: () => any
-): (() => Promise<any>) => {
-  return () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  test: () => void
+): (() => Promise<void>) => {
+  return (): Promise<void> => {
     return Promise.resolve()
       .then(() => options.before())
       .then(() => test)
@@ -18,7 +19,8 @@ const fixture = (
           options.after();
           return Promise.reject(e);
         }
-      );
+      )
+      .then((_) => void 0); // FIXME
   };
 };
 

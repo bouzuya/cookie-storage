@@ -15,6 +15,7 @@ export class CookieStorage implements Storage {
       ...defaultOptions
     };
     if (typeof Proxy !== 'undefined')
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       return new Proxy(this, cookieStorageHandler);
   }
 
@@ -72,6 +73,7 @@ export class CookieStorage implements Storage {
     document.cookie = value;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
   [index: number]: string;
 }
@@ -89,6 +91,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     target.removeItem(p.toString());
     return true;
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get(target: CookieStorage, p: PropertyKey, _receiver: any): any {
     // if the user makes calls to setItem(), length(), etc. pass them through
     if (typeof p === 'string' && p in target) return target[p];
@@ -128,6 +131,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
   preventExtensions(_: CookieStorage): boolean {
     throw new TypeError("can't prevent extensions on this proxy object");
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
     // CookieStorage is always extensible (can't prevent extensions).
     target.setItem(p.toString(), String(value));
