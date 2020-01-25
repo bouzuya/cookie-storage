@@ -31,8 +31,9 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       document.cookie = '1=a;2=b';
       const storage = new CookieStorage();
-      assert(storage[1] === 'a');
+      assert(storage[1] === 'a'); // The index is the key in Storage#getItem(), is not the index in Storage#key(index).
       assert(storage[2] === 'b');
+      assert(storage[3] === undefined); // return value is *not* null
     })
   ),
 
@@ -41,10 +42,9 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       document.cookie = 'a=1;b=2';
       const storage = new CookieStorage();
-      // tslint:disable:no-string-literal
       assert(storage['a'] === '1');
       assert(storage['b'] === '2');
-      // tslint:enable
+      assert(storage['c'] === undefined);
     })
   ),
 
@@ -53,10 +53,9 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       document.cookie = 'a=1;b=2';
       const storage = new CookieStorage();
-      // tslint:disable:no-string-literal
       assert(Object.create(storage)['a'] === '1');
       assert(Object.create(storage)['b'] === '2');
-      // tslint:enable
+      assert(Object.create(storage)['c'] === undefined);
     })
   ),
 
@@ -67,22 +66,19 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
       const storage = new CookieStorage();
       assert(Reflect.get(storage, 'a') === '1');
       assert(Reflect.get(storage, 'b') === '2');
+      assert(Reflect.get(storage, 'c') === undefined);
     })
   ),
 
   // proxy 'set' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set
-  // tslint:enable
 
   test(
     'setByIndex',
     fixture(dummyDocument, () => {
       document.cookie = '';
       const storage = new CookieStorage();
-      // tslint:disable:no-string-literal
       storage['a'] = '1';
-      // tslint:enable
       assert(document.cookie === 'a=1');
     })
   ),
@@ -102,9 +98,7 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       document.cookie = '';
       const storage = new CookieStorage();
-      // tslint:disable:no-string-literal
       Object.create(storage)['a'] = '1';
-      // tslint:enable
       assert(document.cookie === 'a=1');
     })
   ),
@@ -120,9 +114,7 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
   ),
 
   // proxy 'has' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/has
-  // tslint:enable
 
   test(
     'inOperator',
@@ -160,18 +152,13 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
   ),
 
   // proxy 'delete' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/deleteProperty
-  // tslint:enable
 
   test(
     'deleteOperator',
     fixture(dummyDocument, () => {
       const storage = new CookieStorage();
-      // tslint:disable:no-string-literal
       delete storage['a'];
-      assert(storage['a'] === undefined);
-      // tslint:enable
       assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
     })
   ),
@@ -181,17 +168,12 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       const storage = new CookieStorage();
       Reflect.deleteProperty(storage, 'a');
-      // tslint:disable:no-string-literal
-      assert(storage['a'] === undefined);
-      // tslint:enable
       assert(document.cookie === 'a=;expires=Thu, 01 Jan 1970 00:00:00 GMT');
     })
   ),
 
   // proxy 'defineProperty' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/defineProperty
-  // tslint:enable
 
   test(
     'defineProperty',
@@ -214,9 +196,7 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
   ),
 
   // proxy 'ownKeys' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/ownKeys
-  // tslint:enable
 
   test(
     'getOwnPropertyNames',
@@ -255,9 +235,7 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
   ),
 
   // proxy 'getOwnPropertyDescriptor' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/getOwnPropertyDescriptor
-  // tslint:enable
 
   test(
     'getOwnPropertyDescriptorOnProperty',
@@ -297,16 +275,18 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
   ),
 
   // proxy 'preventExtensions' tests
-  // tslint:disable
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/preventExtensions
-  // tslint:enable
 
   test(
     'preventExtensions',
     fixture(dummyDocument, () => {
       const storage = new CookieStorage();
-      Object.preventExtensions(storage);
-      assert(Object.isExtensible(storage) === false);
+      assert.deepStrictEqual(Object.isExtensible(storage), true);
+      assert.throws(
+        () => Object.preventExtensions(storage),
+        /^TypeError: can't prevent extensions on this proxy object$/
+      );
+      assert.deepStrictEqual(Object.isExtensible(storage), true);
     })
   ),
 
@@ -315,10 +295,11 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     fixture(dummyDocument, () => {
       document.cookie = '';
       const storage = new CookieStorage();
-      Object.preventExtensions(storage);
-      // tslint:disable:no-string-literal
+      assert.throws(
+        () => Object.preventExtensions(storage),
+        /^TypeError: can't prevent extensions on this proxy object$/
+      );
       storage['a'] = '1';
-      // tslint:enable
       assert(document.cookie === 'a=1');
     })
   ),
@@ -327,18 +308,12 @@ const tests1: Test[] = group('CookieStorage (indexer) > ', [
     'preventExtensionsBlocksDefineProperty',
     fixture(dummyDocument, () => {
       const storage = new CookieStorage();
-      Object.preventExtensions(storage);
       assert.throws(
-        () => {
-          Object.defineProperty(storage, 'a', { value: '1' });
-        },
-        (error: Error) => {
-          return (
-            error.name === 'TypeError' &&
-            error.message === "Can't add property a, object is not extensible"
-          );
-        }
+        () => Object.preventExtensions(storage),
+        /^TypeError: can't prevent extensions on this proxy object$/
       );
+      Object.defineProperty(storage, 'a', { value: '1' });
+      assert(storage['a'] === '1');
     })
   ),
 
