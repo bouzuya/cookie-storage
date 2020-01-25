@@ -1,6 +1,6 @@
-const parseCookies = (s: string): { [key: string]: string; } => {
+const parseCookies = (s: string): { [key: string]: string } => {
   if (s.length === 0) return {};
-  const parsed: { [key: string]: string; } = {};
+  const parsed: { [key: string]: string } = {};
   const pattern = new RegExp('\\s*;\\s*');
   s.split(pattern).forEach((i) => {
     const [encodedKey, encodedValue] = i.split('=');

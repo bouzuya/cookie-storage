@@ -4,16 +4,13 @@ const formatOptions = (o: CookieOptions): string => {
   const { path, domain, expires, secure } = o;
   const sameSiteValue = getSameSiteValue(o);
   return [
-    typeof path === 'undefined' || path === null
-      ? '' : ';path=' + path,
-    typeof domain === 'undefined' || domain === null
-      ? '' : ';domain=' + domain,
+    typeof path === 'undefined' || path === null ? '' : ';path=' + path,
+    typeof domain === 'undefined' || domain === null ? '' : ';domain=' + domain,
     typeof expires === 'undefined' || expires === null
-      ? '' : ';expires=' + expires.toUTCString(),
-    typeof secure === 'undefined' || secure === false
-      ? '' : ';secure',
-    sameSiteValue === null
-      ? '' : ';SameSite=' + sameSiteValue
+      ? ''
+      : ';expires=' + expires.toUTCString(),
+    typeof secure === 'undefined' || secure === false ? '' : ';secure',
+    sameSiteValue === null ? '' : ';SameSite=' + sameSiteValue
   ].join('');
 };
 

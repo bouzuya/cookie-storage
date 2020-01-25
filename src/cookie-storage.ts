@@ -60,8 +60,10 @@ export class CookieStorage implements Storage {
 
   private _getCookie(): string {
     return typeof document === 'undefined'
-      ? '' : typeof document.cookie === 'undefined'
-        ? '' : document.cookie;
+      ? ''
+      : typeof document.cookie === 'undefined'
+      ? ''
+      : document.cookie;
   }
 
   private _setCookie(value: string): void {
@@ -117,13 +119,12 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     const keys: PropertyKey[] = [];
     for (let i = 0; i < target.length; i++) {
       const key = target.key(i);
-      if (key !== null)
-        keys.push(key);
+      if (key !== null) keys.push(key);
     }
     return keys;
   },
   preventExtensions(_: CookieStorage): boolean {
-    throw new TypeError('can\'t prevent extensions on this proxy object');
+    throw new TypeError("can't prevent extensions on this proxy object");
   },
   set(target: CookieStorage, p: PropertyKey, value: any, _: any): boolean {
     // CookieStorage is always extensible (can't prevent extensions).
