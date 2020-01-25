@@ -32,7 +32,9 @@ export class CookieStorage implements Storage {
 
   public getItem(key: string): string | null {
     const parsed = parseCookies(this._getCookie());
-    return parsed.hasOwnProperty(key) ? parsed[key] : null;
+    return Object.prototype.hasOwnProperty.call(parsed, key)
+      ? parsed[key]
+      : null;
   }
 
   public key(index: number): string | null {
