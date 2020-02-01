@@ -7,6 +7,9 @@ update_configs:
       - match:
           dependency_name: '@babel/*'
           update_type: 'semver:minor'
+      - match:
+          dependency_name: '@typescript-eslint/*'
+          update_type: 'semver:minor'
     ignored_updates:
       - match:
           dependency_name: "@types/node"
