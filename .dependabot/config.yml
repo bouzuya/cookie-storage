@@ -13,4 +13,4 @@ update_configs:
     ignored_updates:
       - match:
           dependency_name: '@types/node'
-          version_requirement: '13.x'
+          version_requirement: '>10'
