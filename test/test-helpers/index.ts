@@ -1,11 +1,11 @@
-import { Test, run } from 'beater';
-import { fixture as fixtureOriginal } from 'beater-helpers/fixture';
-import { named as test } from 'beater-helpers/name';
+import { Test, run } from "beater";
+import { fixture as fixtureOriginal } from "beater-helpers/fixture";
+import { named as test } from "beater-helpers/name";
 
 const fixture = (
   {
     before,
-    after
+    after,
   }: {
     before: () => void;
     after: () => void;

@@ -1,7 +1,7 @@
-import { CookieOptions } from './cookie-options';
-import { formatCookie } from './format-cookie';
-import { parseCookies } from './parse-cookies';
-import { Storage } from './storage';
+import { CookieOptions } from "./cookie-options";
+import { formatCookie } from "./format-cookie";
+import { parseCookies } from "./parse-cookies";
+import { Storage } from "./storage";
 
 export class CookieStorage implements Storage {
   private _defaultOptions: CookieOptions;
@@ -12,9 +12,9 @@ export class CookieStorage implements Storage {
       expires: null,
       path: null,
       secure: false,
-      ...defaultOptions
+      ...defaultOptions,
     };
-    if (typeof Proxy !== 'undefined')
+    if (typeof Proxy !== "undefined")
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       return new Proxy(this, cookieStorageHandler);
   }
@@ -45,11 +45,11 @@ export class CookieStorage implements Storage {
   }
 
   public removeItem(key: string, cookieOptions?: CookieOptions): void {
-    const data = '';
+    const data = "";
     const options = {
       ...this._defaultOptions,
       ...cookieOptions,
-      ...{ expires: new Date(0) }
+      ...{ expires: new Date(0) },
     };
     const formatted = formatCookie(key, data, options);
     this._setCookie(formatted);
@@ -62,10 +62,10 @@ export class CookieStorage implements Storage {
   }
 
   private _getCookie(): string {
-    return typeof document === 'undefined'
-      ? ''
-      : typeof document.cookie === 'undefined'
-      ? ''
+    return typeof document === "undefined"
+      ? ""
+      : typeof document.cookie === "undefined"
+      ? ""
       : document.cookie;
   }
 
@@ -94,7 +94,7 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get(target: CookieStorage, p: PropertyKey, _receiver: any): any {
     // if the user makes calls to setItem(), length(), etc. pass them through
-    if (typeof p === 'string' && p in target) return target[p];
+    if (typeof p === "string" && p in target) return target[p];
     const result = target.getItem(p.toString());
     return result !== null ? result : undefined;
   },
@@ -113,11 +113,11 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
       configurable: true,
       enumerable: true,
       value: target.getItem(p.toString()),
-      writable: true
+      writable: true,
     };
   },
   has(target: CookieStorage, p: PropertyKey): boolean {
-    if (typeof p === 'string' && p in target) return true;
+    if (typeof p === "string" && p in target) return true;
     return target.getItem(p.toString()) !== null;
   },
   ownKeys(target: CookieStorage): PropertyKey[] {
@@ -136,5 +136,5 @@ const cookieStorageHandler: ProxyHandler<CookieStorage> = {
     // CookieStorage is always extensible (can't prevent extensions).
     target.setItem(p.toString(), String(value));
     return true;
-  }
+  },
 };
