@@ -13,46 +13,46 @@ $ npm install cookie-storage
 ## Usage
 
 ```javascript
-import { CookieStorage } from 'cookie-storage';
+import { CookieStorage } from "cookie-storage";
 
 const cookieStorage = new CookieStorage();
 
 cookieStorage.length === 0;
-cookieStorage.getItem('key') === null;
+cookieStorage.getItem("key") === null;
 
-cookieStorage.setItem('key', 'value');
+cookieStorage.setItem("key", "value");
 cookieStorage.length === 1;
-cookieStorage.key(0) === 'key';
+cookieStorage.key(0) === "key";
 
-cookieStorage.getItem('key') === 'value';
-cookieStorage.removeItem('key');
+cookieStorage.getItem("key") === "value";
+cookieStorage.removeItem("key");
 cookieStorage.length === 0;
 
-cookieStorage.setItem('k1', 'v1');
-cookieStorage.setItem('k2', 'v2');
+cookieStorage.setItem("k1", "v1");
+cookieStorage.setItem("k2", "v2");
 cookieStorage.length === 2;
 
 cookieStorage.clear();
 cookieStorage.length === 0;
 
 // Cookie options
-cookieStorage.setItem('key', 'value', {
-  path: '/',
-  domain: 'example.com',
+cookieStorage.setItem("key", "value", {
+  path: "/",
+  domain: "example.com",
   expires: new Date(),
   secure: true,
-  sameSite: 'Strict' // Can be 'Strict' or 'Lax'.
+  sameSite: "Strict", // Can be 'Strict' or 'Lax' or 'None'.
 });
 
 // Use default cookie options
 const storage = new CookieStorage({
-  path: '/',
-  domain: 'example.com',
+  path: "/",
+  domain: "example.com",
   expires: new Date(),
   secure: true,
-  sameSite: 'Strict' // Can be 'Strict' or 'Lax'.
+  sameSite: "Strict", // Can be 'Strict' or 'Lax' or 'None'.
 });
-storage.setItem('key', 'value'); // ;path=/;domain=example.com;...
+storage.setItem("key", "value"); // ;path=/;domain=example.com;...
 ```
 
 ## Development
