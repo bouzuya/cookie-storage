@@ -37,6 +37,9 @@ const tests1: Test[] = group("CookieStorage > ", [
       const storage8 = new CookieStorage({ sameSite: "Strict" });
       storage8.setItem("e", "7");
       assert(document.cookie === "e=7;SameSite=Strict");
+      const storage9 = new CookieStorage({ sameSite: "None" });
+      storage9.setItem("e", "8");
+      assert.deepStrictEqual(document.cookie, "e=8;SameSite=None");
     })
   ),
 

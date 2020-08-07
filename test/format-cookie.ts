@@ -20,6 +20,9 @@ const tests1: Test[] = group("format-cookie > ", [
       formatCookie("e", "6", { sameSite: "Strict" }) === "e=6;SameSite=Strict"
     );
     assert(formatCookie("e", "7", { sameSite: "Lax" }) === "e=7;SameSite=Lax");
+    assert(
+      formatCookie("e", "8", { sameSite: "None" }) === "e=8;SameSite=None"
+    );
     assert(formatCookie("=", "=", {}) === "%3D=%3D");
   }),
 ]);
