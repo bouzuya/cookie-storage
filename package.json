@@ -31,7 +31,7 @@
     "@types/node": "^10.17.14",
     "@types/power-assert": "^1.5.0",
     "@types/proxyquire": "^1.3.28",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^3.8.0",
     "babel-preset-power-assert": "^3.0.0",
     "beater": "^9.0.0",
