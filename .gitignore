@@ -1,6 +1,7 @@
 *.log
 .envrc
 .tmp
+.idea
 coverage
 lib
 node_modules
