@@ -2,11 +2,14 @@ import { CookieOptions } from "./cookie-options";
 import { formatCookie } from "./format-cookie";
 import { parseCookies } from "./parse-cookies";
 import { Storage } from "./storage";
+import { CookieDriver } from "./drivers/cookie-driver";
+import { BrowserCookieDriver } from "./drivers/browser-cookie-driver";
 
 export class CookieStorage implements Storage {
   private _defaultOptions: CookieOptions;
+  private _driver: CookieDriver;
 
-  constructor(defaultOptions?: CookieOptions) {
+  constructor(defaultOptions?: CookieOptions, driver?: CookieDriver) {
     this._defaultOptions = {
       domain: null,
       expires: null,
@@ -14,6 +17,7 @@ export class CookieStorage implements Storage {
       secure: false,
       ...defaultOptions,
     };
+    this._driver = driver || new BrowserCookieDriver();
     if (typeof Proxy !== "undefined")
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       return new Proxy(this, cookieStorageHandler);
@@ -62,15 +66,11 @@ export class CookieStorage implements Storage {
   }
 
   private _getCookie(): string {
-    return typeof document === "undefined"
-      ? ""
-      : typeof document.cookie === "undefined"
-      ? ""
-      : document.cookie;
+    return this._driver.getCookies();
   }
 
   private _setCookie(value: string): void {
-    document.cookie = value;
+    this._driver.setCookies(value);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
