@@ -3,9 +3,9 @@ const parseCookies = (s: string): { [key: string]: string } => {
   const parsed: { [key: string]: string } = {};
   const pattern = new RegExp("\\s*;\\s*");
   s.split(pattern).forEach((i) => {
-    const [encodedKey, encodedValue] = i.split("=");
+    const [encodedKey, ...encodedValueList] = i.split("=");
     const key = decodeURIComponent(encodedKey);
-    const value = decodeURIComponent(encodedValue);
+    const value = decodeURIComponent(encodedValueList.join("="));
     parsed[key] = value;
   });
   return parsed;
