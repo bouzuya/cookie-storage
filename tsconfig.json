@@ -11,15 +11,15 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "./.tmp/es2015/",
+    "outDir": "dist",
     "removeComments": true,
     "rootDir": ".",
     "sourceMap": false,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    "types": ["vite/client"]
   },
-  "files": [
-    "./src/index.ts",
-    "./test/index.ts"
+  "include": [
+    "src"
   ]
 }
