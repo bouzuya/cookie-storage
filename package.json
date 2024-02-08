@@ -7,33 +7,15 @@
     "email": "m@bouzuya.net",
     "url": "http://bouzuya.net"
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "browsers": "> 0.25%, not dead",
-            "node": "10"
-          }
-        }
-      ],
-      "power-assert"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/bouzuya/cookie-storage/issues"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
     "@types/node": "^10.17.14",
     "@types/power-assert": "^1.5.0",
     "@types/proxyquire": "^1.3.28",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
-    "babel-preset-power-assert": "^3.0.0",
     "beater": "^9.0.0",
     "beater-helpers": "^2.0.0",
     "eslint": "^7.6.0",
@@ -44,7 +26,8 @@
     "proxyquire": "^2.1.3",
     "rimraf": "^3.0.0",
     "typescript": "^3.9.7",
-    "watch": "^1.0.2"
+    "watch": "^1.0.2",
+    "vite": "^2.7.12"
   },
   "files": [
     "lib"
@@ -56,26 +39,33 @@
     "storage"
   ],
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "dist/index.umd.js",
+  "unpkg": "dist/index.iife.js",
+  "jsdelivr": "dist/index.iife.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bouzuya/cookie-storage.git"
   },
   "scripts": {
-    "build": "npm-run-all -s build:format build:lint build:ts build:es2015 build:lib",
-    "build:es2015": "babel --out-dir \".tmp/es5/\" \".tmp/es2015/\"",
+    "dev":"vite",
+    "build": "vite build && tsc",
     "build:format": "prettier --check '{src,test}/**/*.ts'",
-    "build:lib": "babel --copy-files --no-comments --out-dir \"lib/\" \".tmp/es2015/src/\"",
     "build:lint": "eslint '{src,test}/**/*.ts'",
     "build:ts": "tsc",
     "clean": "rimraf \".tmp\" \"lib\"",
     "format": "prettier --write '{src,test}/**/*.ts'",
     "prepare": "npm-run-all -s \"clean\" \"build\"",
-    "test": "node \".tmp/es5/test\"",
+    "test": "npx ts-node \"./test/index.ts\"",
     "watch": "npm-run-all -p \"watch:*\"",
-    "watch:es2015": "npm run \"build:es2015\" -- --watch",
-    "watch:test": "watch --wait 2 \"npm test\" \".tmp/es5/\"",
+    "watch:test": "watch --wait 2 --verbose \"npm run test\"",
     "watch:ts": "npm run \"build:ts\" -- --watch"
   },
-  "typings": "./lib/index.d.ts"
+  "types": "./dist/src/index.d.ts"
 }
